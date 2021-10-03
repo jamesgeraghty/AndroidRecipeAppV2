@@ -3,9 +3,10 @@ package org.wit.recipeapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
-import org.wit.recipeapp.databinding.ActivityRecipeBinding
-import org.wit.recipeapp.main.MainApp
-import org.wit.recipeapp.models.RecipeModel
+import org.wit.recipesapp.databinding.ActivityRecipeBinding
+
+import org.wit.recipesapp.main.MainApp
+import org.wit.recipesapp.models.RecipeModel
 
 import timber.log.Timber
 import timber.log.Timber.i

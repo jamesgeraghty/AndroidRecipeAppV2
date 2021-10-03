@@ -1,4 +1,4 @@
-package org.wit.recipeapp.models
+package org.wit.recipesapp.models
 
 data class RecipeModel(var title: String = "",
 var description: String = "")

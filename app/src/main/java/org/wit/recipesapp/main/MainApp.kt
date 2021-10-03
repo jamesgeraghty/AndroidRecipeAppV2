@@ -1,8 +1,8 @@
-package org.wit.recipeapp.main
+package org.wit.recipesapp.main
 
 
 import android.app.Application
-import org.wit.recipeapp.models.RecipeModel
+import org.wit.recipesapp.models.RecipeModel
 import timber.log.Timber
 import timber.log.Timber.i
 
