@@ -1,4 +1,4 @@
-package org.wit.recipeapp
+package org.wit.recipesapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,26 +19,31 @@ class RecipeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Timber.plant(Timber.DebugTree())
-        i("Recipes Activity started...")
 
         app = application as MainApp
+
         i("Recipe Activity started...")
+
+
         binding.btnAdd.setOnClickListener() {
             recipe.title = binding.recipeTitle.text.toString()
             recipe.description = binding.description.text.toString()
             if (recipe.title.isNotEmpty()) {
+
                 app.recipes.add(recipe.copy())
-                i("add Button Pressed: $recipe.title")
-                for (i in app.recipes.indices)
-                { i("Recipe[$i]:${this.app.recipes[i]}") }
+                i("add Button Pressed: ${recipe}")
+                for (i in app.recipes.indices) {
+                    i("Placemark[$i]:${this.app.recipes[i]}")
+                }
+                setResult(RESULT_OK)
+                finish()
             }
             else {
-                Snackbar
-                    .make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+                Snackbar.make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
                     .show()
             }
         }

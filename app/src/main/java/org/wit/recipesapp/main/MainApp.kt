@@ -14,5 +14,6 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("Recipes App started")
+
     }
 }
