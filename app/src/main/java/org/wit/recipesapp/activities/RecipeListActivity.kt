@@ -10,13 +10,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.wit.recipesapp.R
+import org.wit.recipesapp.adapters.RecipeAdapter
+import org.wit.recipesapp.adapters.RecipeListener
 
 import org.wit.recipesapp.databinding.ActivityRecipeListBinding
 import org.wit.recipesapp.databinding.CardRecipeBinding
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
 
-class RecipeListActivity : AppCompatActivity() {
+class RecipeListActivity : AppCompatActivity(), RecipeListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityRecipeListBinding
@@ -32,7 +34,8 @@ class RecipeListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = RecipeAdapter(app.recipes)
+       // binding.recyclerView.adapter = RecipeAdapter(app.recipes)
+        binding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -50,30 +53,9 @@ class RecipeListActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-}
-class RecipeAdapter constructor(private var recipes: List<RecipeModel>) :
-    RecyclerView.Adapter<RecipeAdapter.MainHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        val binding = CardRecipeBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-
-        return MainHolder(binding)
+    override fun onRecipeClick(recipe: RecipeModel) {
+        val launcherIntent = Intent(this, RecipeActivity::class.java)
+        startActivityForResult(launcherIntent,0)
     }
 
-    override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val recipe = recipes[holder.adapterPosition]
-        holder.bind(recipe)
-    }
-
-    override fun getItemCount(): Int = recipes.size
-
-    class MainHolder(private val binding: CardRecipeBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(recipe: RecipeModel) {
-            binding.recipeTitle.text = recipe.title
-            binding.description.text = recipe.description
-        }
-    }
 }

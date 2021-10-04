@@ -2,7 +2,10 @@ package org.wit.recipesapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
+import org.wit.recipesapp.R
 import org.wit.recipesapp.databinding.ActivityRecipeBinding
 
 import org.wit.recipesapp.main.MainApp
@@ -23,6 +26,10 @@ class RecipeActivity : AppCompatActivity() {
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolbarAdd.title = title
+        setSupportActionBar(binding.toolbarAdd)
+
+
 
         app = application as MainApp
 
@@ -33,12 +40,8 @@ class RecipeActivity : AppCompatActivity() {
             recipe.title = binding.recipeTitle.text.toString()
             recipe.description = binding.description.text.toString()
             if (recipe.title.isNotEmpty()) {
-
-                app.recipes.add(recipe.copy())
+                app.recipes.create(recipe.copy())
                 i("add Button Pressed: ${recipe}")
-                for (i in app.recipes.indices) {
-                    i("Placemark[$i]:${this.app.recipes[i]}")
-                }
                 setResult(RESULT_OK)
                 finish()
             }
@@ -47,5 +50,19 @@ class RecipeActivity : AppCompatActivity() {
                     .show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_recipe, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
