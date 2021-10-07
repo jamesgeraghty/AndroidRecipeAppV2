@@ -9,7 +9,7 @@ import org.wit.recipesapp.databinding.CardRecipeBinding
 import org.wit.recipesapp.models.RecipeModel
 
 interface RecipeListener {
-    fun onRecipeClick(placemark: RecipeModel)
+    fun onRecipeClick(recipe: RecipeModel)
 }
 
 class RecipeAdapter constructor(private var recipes: List<RecipeModel>,

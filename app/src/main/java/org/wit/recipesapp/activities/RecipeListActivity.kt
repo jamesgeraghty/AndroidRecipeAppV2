@@ -3,18 +3,13 @@ package org.wit.recipesapp.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.adapters.RecipeListener
-
 import org.wit.recipesapp.databinding.ActivityRecipeListBinding
-import org.wit.recipesapp.databinding.CardRecipeBinding
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
 
@@ -55,7 +50,13 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
 
     override fun onRecipeClick(recipe: RecipeModel) {
         val launcherIntent = Intent(this, RecipeActivity::class.java)
+        launcherIntent.putExtra("recipe_edit", recipe)
         startActivityForResult(launcherIntent,0)
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
 
 }

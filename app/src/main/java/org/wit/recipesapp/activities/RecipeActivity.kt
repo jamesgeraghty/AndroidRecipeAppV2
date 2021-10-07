@@ -23,32 +23,39 @@ class RecipeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        var edit = false
+
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
-
-
-
         app = application as MainApp
 
-        i("Recipe Activity started...")
+        i("Recipes Activity started...")
 
+        if (intent.hasExtra("recipe_edit")) {
+            edit = true
+            recipe = intent.extras?.getParcelable("recipe_edit")!!
+            binding.recipeTitle.setText(recipe.title)
+            binding.description.setText(recipe.description)
+            binding.btnAdd.setText(R.string.save_recipe)
+        }
 
         binding.btnAdd.setOnClickListener() {
             recipe.title = binding.recipeTitle.text.toString()
             recipe.description = binding.description.text.toString()
-            if (recipe.title.isNotEmpty()) {
-                app.recipes.create(recipe.copy())
-                i("add Button Pressed: ${recipe}")
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                Snackbar.make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+            if (recipe.title.isEmpty()) {
+                Snackbar.make(it,R.string.enter_recipe_title, Snackbar.LENGTH_LONG)
                     .show()
+            } else {
+                if (edit) {
+                    app.recipes.update(recipe.copy())
+                } else {
+                    app.recipes.create(recipe.copy())
+                }
             }
+            setResult(RESULT_OK)
+            finish()
         }
     }
 
@@ -59,8 +66,7 @@ class RecipeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> {
-                finish()
+            R.id.item_cancel -> { finish()
             }
         }
         return super.onOptionsItemSelected(item)
