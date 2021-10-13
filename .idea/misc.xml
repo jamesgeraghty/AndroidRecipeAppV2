@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.30104166666666665" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.30104166666666665" />
+        <entry key="..\:/Users/james/AndroidStudioProjects/RecipesApp/app/src/main/res/layout/acitivity_main.xml" value="0.276268115942029" />
+        <entry key="..\:/Users/james/AndroidStudioProjects/RecipesApp/app/src/main/res/layout/activity_main.xml" value="0.276268115942029" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesApp/app/src/main/res/layout/activity_recipe.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesApp/app/src/main/res/layout/activity_recipe_list.xml" value="0.1" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesApp/app/src/main/res/layout/card_recipe.xml" value="0.2957427536231884" />

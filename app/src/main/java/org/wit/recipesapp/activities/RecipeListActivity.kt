@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
@@ -17,6 +19,7 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityRecipeListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,8 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
         binding.recyclerView.layoutManager = layoutManager
        // binding.recyclerView.adapter = RecipeAdapter(app.recipes)
         binding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
+
+        registerRefreshCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -42,7 +47,7 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, RecipeActivity::class.java)
-                startActivityForResult(launcherIntent, 0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -50,13 +55,14 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
 
     override fun onRecipeClick(recipe: RecipeModel) {
         val launcherIntent = Intent(this, RecipeActivity::class.java)
-        launcherIntent.putExtra("recipe_edit", recipe)
-        startActivityForResult(launcherIntent,0)
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+        launcherIntent.putExtra("placemark_edit", recipe)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
+    }
 
 }

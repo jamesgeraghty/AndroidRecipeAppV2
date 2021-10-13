@@ -4,6 +4,7 @@ package org.wit.recipesapp.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 import org.wit.recipesapp.databinding.CardRecipeBinding
 import org.wit.recipesapp.models.RecipeModel
@@ -36,6 +37,7 @@ class RecipeAdapter constructor(private var recipes: List<RecipeModel>,
         fun bind(recipe: RecipeModel, listener: RecipeListener) {
             binding.recipeTitle.text = recipe.title
             binding.description.text = recipe.description
+            Picasso.get().load(recipe.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onRecipeClick(recipe) }
         }
     }
