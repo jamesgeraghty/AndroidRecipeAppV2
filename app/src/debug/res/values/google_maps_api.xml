@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=3B:8D:9C:22:88:05:4C:E9:A0:5A:BC:6A:68:41:31:8F:14:92:4D:B8%3Borg.wit.recipesapp.activities
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    org.wit.recipesapp.activities
+
+    SHA-1 certificate fingerprint:
+    3B:8D:9C:22:88:05:4C:E9:A0:5A:BC:6A:68:41:31:8F:14:92:4D:B8
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCc39nbEeS_9z_4me5CaR_JVl4pEkqT4Zk</string>
+</resources>
