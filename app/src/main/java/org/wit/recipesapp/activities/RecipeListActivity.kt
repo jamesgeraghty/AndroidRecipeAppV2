@@ -55,7 +55,7 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
 
     override fun onRecipeClick(recipe: RecipeModel) {
         val launcherIntent = Intent(this, RecipeActivity::class.java)
-        launcherIntent.putExtra("placemark_edit", recipe)
+        launcherIntent.putExtra("recipe_edit", recipe)
         refreshIntentLauncher.launch(launcherIntent)
     }
 

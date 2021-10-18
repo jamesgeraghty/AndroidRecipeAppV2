@@ -1,12 +1,13 @@
 package org.wit.recipesapp.activities
 
-import android.app.Activity
+
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.maps.GoogleMap
@@ -36,7 +37,7 @@ class RecipeActivity : AppCompatActivity() {
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
-    val IMAGE_REQUEST = 1
+  //  val IMAGE_REQUEST = 1
 
     var location = Location(52.245696, -7.139102, 15f)
 
@@ -59,6 +60,7 @@ class RecipeActivity : AppCompatActivity() {
             binding.recipeTitle.setText(recipe.title)
             binding.description.setText(recipe.description)
             binding.btnAdd.setText(R.string.save_recipe)
+            binding.btnDelete.setVisibility(View.VISIBLE);
             Picasso.get()
                 .load(recipe.image)
                 .into(binding.recipeImage)
@@ -66,6 +68,14 @@ class RecipeActivity : AppCompatActivity() {
                 binding.chooseImage.setText(R.string.change_recipe_image)
             }
         }
+
+        binding.btnDelete.setOnClickListener() {
+            app.recipes.delete(recipe)
+
+            setResult(RESULT_OK)
+            finish()
+        }
+
 
         binding.btnAdd.setOnClickListener() {
             recipe.title = binding.recipeTitle.text.toString()
@@ -85,9 +95,6 @@ class RecipeActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.chooseImage.setOnClickListener {
-            i("Select image")
-        }
 
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)

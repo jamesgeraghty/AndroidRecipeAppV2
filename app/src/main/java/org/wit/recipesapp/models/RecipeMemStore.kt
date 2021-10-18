@@ -32,6 +32,15 @@ class RecipeMemStore : RecipeStore {
         }
     }
 
+    override fun delete(recipe: RecipeModel) {
+        var foundRecipe: RecipeModel? = recipes.find { p -> p.id == recipe.id }
+        if (foundRecipe != null) {
+            recipes.remove(recipe)
+
+            logAll()
+        }
+    }
+
     private fun logAll() {
         recipes.forEach { i("$it") }
     }
