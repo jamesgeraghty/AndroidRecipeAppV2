@@ -39,7 +39,7 @@ class RecipeActivity : AppCompatActivity() {
 
   //  val IMAGE_REQUEST = 1
 
-    var location = Location(52.245696, -7.139102, 15f)
+//    var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,10 +105,17 @@ class RecipeActivity : AppCompatActivity() {
         }
 
         binding.recipeLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (recipe.zoom != 0f) {
+                location.lat =  recipe.lat
+                location.lng = recipe.lng
+                location.zoom = recipe.zoom
+            }
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
         }
+
 
         registerImagePickerCallback()
         registerMapCallback()
@@ -156,11 +163,15 @@ class RecipeActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
-                            location = result.data!!.extras?.getParcelable("location")!!
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
                             i("Location == $location")
+                            recipe.lat = location.lat
+                            recipe.lng = location.lng
+                            recipe.zoom = location.zoom
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
+
                 }
             }
     }

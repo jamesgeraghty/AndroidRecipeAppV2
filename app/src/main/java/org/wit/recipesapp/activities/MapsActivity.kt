@@ -18,7 +18,8 @@ import org.wit.recipesapp.R
 import org.wit.recipesapp.models.Location
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback,
-    GoogleMap.OnMarkerDragListener {
+    GoogleMap.OnMarkerDragListener,
+    GoogleMap.OnMarkerClickListener{
 
     private lateinit var map: GoogleMap
     var location = Location()
@@ -36,12 +37,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         map = googleMap
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
-            .title("Placemark")
+            .title("Recipe")
             .snippet("GPS : $loc")
             .draggable(true)
             .position(loc)
         map.addMarker(options)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
+        map.setOnMarkerClickListener(this)
         map.setOnMarkerDragListener(this)
     }
 
@@ -63,5 +65,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
         super.onBackPressed()
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val loc = LatLng(location.lat, location.lng)
+        marker.snippet = "GPS : $loc"
+        return false
     }
 }
