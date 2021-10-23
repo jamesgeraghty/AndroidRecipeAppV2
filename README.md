@@ -2,7 +2,7 @@
 
 Mobile Application Development (Higher Diploma in Computer Science)
 
-This is a Android Mobile Phone application that I design in Android Studio.
+A Android Mobile Phone application created in Android Studio.
 
 
 ## Features
