@@ -7,6 +7,8 @@
     <color name="yellow_700">#ffe599</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#8E0707</color>
+
 
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>

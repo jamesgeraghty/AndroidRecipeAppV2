@@ -42,12 +42,24 @@ class RecipeJSONStore(private val context: Context) : RecipeStore {
 
 
     override fun update(recipe: RecipeModel) {
-        // todo
+        val recipesList = findAll() as ArrayList<RecipeModel>
+        var foundRecipe: RecipeModel? = recipesList.find { p -> p.id == recipe.id }
+        if (foundRecipe != null) {
+            foundRecipe.title = recipe.title
+            foundRecipe.description = recipe.description
+            foundRecipe.image = recipe.image
+            foundRecipe.lat = recipe.lat
+            foundRecipe.lng = recipe.lng
+            foundRecipe.zoom = recipe.zoom
+        }
+        serialize()
     }
 
-    override fun delete(recipe: RecipeModel) {
-        TODO("Not yet implemented")
-    }
+
+        override fun delete(recipe: RecipeModel) {
+            recipes.remove(recipe)
+            serialize()
+        }
 
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(recipes, listType)
