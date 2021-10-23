@@ -1,4 +1,6 @@
-# Android Recipe App
+# Android Recipe App by James Geraghty
+
+Mobile Application Development (Higher Diploma in Computer Science)
 
 This is a Android Mobile Phone application that I design in Android Studio.
 
