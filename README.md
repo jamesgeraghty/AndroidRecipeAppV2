@@ -1,14 +1,14 @@
 # Android Recipe App
 
-A brief description of what this project does and who it's for
+This is a Android Mobile Phone application that I design in Android Studio.
 
 
 ## Features
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- Create, read,update and delete 
+- Upload images
+- Location functionality using Google Maps API
+
 
   
 ## API Reference
@@ -38,18 +38,13 @@ A brief description of what this project does and who it's for
 Takes two numbers and returns the sum.
 
   
-## Acknowledgements
+## Demo
 
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+ - [Video Demo](**LINK HERE**)
 
   
 ## Screenshots
 
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
-  
-## Demo
 
-Insert gif or link to demo
