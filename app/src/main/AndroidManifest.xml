@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Recipe">
         <activity
+            android:name=".activities.RecipesMapsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Recipe">
@@ -32,7 +35,6 @@
             android:exported="true"
             android:label="@string/title_activity_map" />
         <activity
-
             android:name=".activities.RecipeListActivity"
             android:exported="true">
             <intent-filter>
@@ -43,4 +45,5 @@
         </activity>
         <activity android:name=".activities.RecipeActivity" />
     </application>
+
 </manifest>

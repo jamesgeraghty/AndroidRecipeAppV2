@@ -36,6 +36,7 @@ class RecipeActivity : AppCompatActivity() {
     lateinit var app : MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    var edit = false;
 
   //  val IMAGE_REQUEST = 1
 
@@ -123,18 +124,22 @@ class RecipeActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_recipe, menu)
+        if (edit && menu != null) menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        when (item?.itemId) {
+            R.id.item_delete -> {
+                app.recipes.delete(recipe)
+                finish()
+            }
             R.id.item_cancel -> {
                 finish()
             }
         }
         return super.onOptionsItemSelected(item)
     }
-
     private fun registerImagePickerCallback() {
         imageIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
