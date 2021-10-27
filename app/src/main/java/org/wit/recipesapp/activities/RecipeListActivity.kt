@@ -20,6 +20,7 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
     lateinit var app: MainApp
     private lateinit var binding: ActivityRecipeListBinding
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +34,8 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         loadRecipes()
-
         registerRefreshCallback()
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -48,10 +49,13 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
                 val launcherIntent = Intent(this, RecipeActivity::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
             }
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, RecipesMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
-
     override fun onRecipeClick(recipe: RecipeModel) {
         val launcherIntent = Intent(this, RecipeActivity::class.java)
         launcherIntent.putExtra("recipe_edit", recipe)
@@ -62,6 +66,12 @@ class RecipeListActivity : AppCompatActivity(), RecipeListener {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { loadRecipes() }
+    }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            {  }
     }
     private fun loadRecipes() {
         showRecipes(app.recipes.findAll())

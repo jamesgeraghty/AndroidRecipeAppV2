@@ -29,7 +29,8 @@ import timber.log.Timber.i
 
 
 
-class RecipeActivity : AppCompatActivity() {
+
+class RecipeActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityRecipeBinding
     var recipe = RecipeModel()
@@ -124,7 +125,7 @@ class RecipeActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_recipe, menu)
-        if (edit && menu != null) menu.getItem(0).setVisible(true)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -153,7 +154,7 @@ class RecipeActivity : AppCompatActivity() {
                                 .load(recipe.image)
                                 .into(binding.recipeImage)
                             binding.chooseImage.setText(R.string.change_recipe_image)
-                        } // end of if
+                        }
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }
@@ -173,7 +174,7 @@ class RecipeActivity : AppCompatActivity() {
                             recipe.lat = location.lat
                             recipe.lng = location.lng
                             recipe.zoom = location.zoom
-                        } // end of if
+                        }
                     }
                     RESULT_CANCELED -> { } else -> { }
 
