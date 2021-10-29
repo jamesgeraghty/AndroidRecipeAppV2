@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         //create a temporary user
-       if (app.users.findAll().firstOrNull { it.email == "james@geraghty.ie" } == null)
+      // if (app.users.findAll().firstOrNull { it.email == "james@geraghty.ie" } == null)
             app.users.create(UserModel("james@geraghty.ie", "James", "Geraghty", "123"))
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
