@@ -6,4 +6,6 @@ interface RecipeStore {
     fun update(recipe: RecipeModel)
     fun delete(recipe: RecipeModel)
 
+
+
 }

@@ -23,6 +23,7 @@ import org.wit.recipesapp.databinding.ActivityRecipeBinding
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.Location
 import org.wit.recipesapp.models.RecipeModel
+import org.wit.recipesapp.models.UserModel
 
 import timber.log.Timber
 import timber.log.Timber.i
@@ -34,6 +35,8 @@ class RecipeActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityRecipeBinding
     var recipe = RecipeModel()
+
+    var user = UserModel()
     lateinit var app : MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>

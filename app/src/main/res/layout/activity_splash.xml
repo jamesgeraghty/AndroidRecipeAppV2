@@ -48,7 +48,6 @@
         android:gravity="center"
         android:layout_marginTop="200dp"
         android:padding="15dp"
-        android:text="Designed by James Geraghty"
         android:textColor="@color/white"
         android:textSize="15dp"
         android:textStyle="bold"
