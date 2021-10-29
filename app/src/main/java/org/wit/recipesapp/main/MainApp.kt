@@ -2,20 +2,21 @@ package org.wit.recipesapp.main
 
 
 import android.app.Application
-import org.wit.recipesapp.models.RecipeMemStore
-//import org.wit.recipesapp.models.RecipeModel
+import org.wit.recipesapp.models.*
 import timber.log.Timber
 import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    //val recipes = ArrayList<RecipeModel>()
-    val recipes = RecipeMemStore()
+    lateinit var recipes: RecipeJSONStore
+    lateinit var users: UserStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        i("Recipes App started")
+        recipes = RecipeJSONStore(applicationContext)
+        users = UserJSONStore(applicationContext)
 
+        i("Placemark started")
     }
 }

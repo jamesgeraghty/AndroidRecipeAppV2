@@ -1,8 +1,33 @@
 <resources>
-    <string name="app_name">RecipesApp</string>
+    <string name="app_name">Recipes App</string>
     <string name="button_addRecipe">Add Recipe</string>
     <string name="hint_recipeTitle">Recipe Title</string>
     <string name="hint_recipeDescription">Description </string>
     <string name="menu_addRecipe">Add</string>
     <string name="menu_cancelRecipe">Cancel</string>
+    <string name="enter_recipe_title"> Please enter a Recipe Title </string>
+    <string name="save_recipe"> Save Recipe </string>
+    <string name="button_addImage"> Add Image </string>
+    <string name="select_recipe_image">Select recipe image</string>
+    <string name="change_recipe_image">Change recipe image</string>
+    <string name="button_location">Set Location</string>
+    <string name="title_activity_map">Map</string>
+    <string name="delete_recipe"> Delete Recipe </string>
+    <string name="title_activity_recipe_maps">Map of All Recipes </string>
+    <string name="recipe_image_placeholder">Recipe Imagee</string>
+    <string name="recipe_title_placeholder">Recipe Title</string>
+    <string name="recipe_description_placeholder">Recipe Description</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="first_name">First Name</string>
+    <string name="second_name">Second Name</string>
+    <string name="sign_register_in">Sign in or register</string>
+    <string name="sign_in">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Incorrect Password</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="sign_up">"Sign Up"</string>
+    <string name="email_taken">"This email is already in use"</string>
+
 </resources>
