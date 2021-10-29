@@ -10,6 +10,11 @@ A Android Mobile Phone application created in Android Studio.
 - Create, read,update and delete 
 - Upload images
 - Location functionality using Google Maps API
+- Recipes are store locally in JSON 
+- Adherence to Android Best Pratices
+- Google maps 
+- Splash screen 
+- User register/login
 
 
   
@@ -35,14 +40,6 @@ A Android Mobile Phone application created in Android Studio.
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `string` | **Required**. Id of item to fetch |
 
-#### add(num1, num2)
-
-Takes two numbers and returns the sum.
-
-  
-## Demo
-
- - [Video Demo](**LINK HERE**)
 
   
 ## Screenshots
