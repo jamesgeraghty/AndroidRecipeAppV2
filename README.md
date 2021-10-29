@@ -44,6 +44,6 @@ A Android Mobile Phone application created in Android Studio.
   
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeApp/blob/master/Capture3.PNG)
 
 
