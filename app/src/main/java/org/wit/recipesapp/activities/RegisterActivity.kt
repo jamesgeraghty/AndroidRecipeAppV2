@@ -17,7 +17,8 @@ import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.UserModel
 import timber.log.Timber
 
-class RegisterActivity : AppCompatActivity() {
+class
+RegisterActivity : AppCompatActivity() {
     lateinit var app: MainApp
 
     private lateinit var binding: ActivityRegisterBinding
