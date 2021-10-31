@@ -25,18 +25,10 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var recipeIntentLauncher: ActivityResultLauncher<Intent>
     private lateinit var signUpIntentLauncher: ActivityResultLauncher<Intent>
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         app = application as MainApp
-
-
-        //create a temporary user
-      // if (app.users.findAll().firstOrNull { it.email == "james@geraghty.ie" } == null)
-            app.users.create(UserModel("james@geraghty.ie", "James", "Geraghty", "123"))
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
