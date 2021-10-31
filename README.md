@@ -2,7 +2,7 @@
 
 Mobile Application Development (Higher Diploma in Computer Science)
 
-A Android Mobile Phone application created in Android Studio.
+An Android Mobile Phone application created in Android Studio.
 
 
 ## Features
@@ -15,30 +15,6 @@ A Android Mobile Phone application created in Android Studio.
 - Google maps 
 - Splash screen 
 - User register/login
-
-
-  
-## API Reference
-
-#### Get all items
-
-```http
-  GET /api/items
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-
-#### Get item
-
-```http
-  GET /api/items/${id}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
 
 
   
