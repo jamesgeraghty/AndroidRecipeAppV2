@@ -2,7 +2,7 @@
 
 Mobile Application Development (Higher Diploma in Computer Science)
 
-An Android Mobile Phone application created in Android Studio.
+A recipe Mobile Phone application created in Android Studio. The user can create an account and add and delete recipes. The Google Map API allows the user to add locations. The recipe and user data is stored locally on the android device in JSON.
 
 
 ## Features
