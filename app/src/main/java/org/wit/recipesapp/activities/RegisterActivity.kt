@@ -29,6 +29,7 @@ RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         app = application as MainApp
+        // this is a test comment
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
