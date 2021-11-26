@@ -46,10 +46,10 @@ class RecipeFragment : Fragment() {
         _fragBinding = FragmentRecipeBinding.inflate(inflater, container, false)
         val root = fragBinding.root
 
+
+
         return view;
     }
-
-
 
 
     companion object {
