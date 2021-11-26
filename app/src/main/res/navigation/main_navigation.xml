@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/recipeFragment">
+
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="org.wit.recipesapp.fragments.RecipeFragment"
+        android:label="fragment_recipe"
+        tools:layout="@layout/fragment_recipe" >
+        <action
+            android:id="@+id/action_recipeFragment_to_receipeListFragment"
+            app:destination="@id/receipeListFragment"
+            app:enterAnim="@android:anim/fade_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/receipeListFragment"
+        android:name="org.wit.recipesapp.fragments.ReceipeListFragment"
+        android:label="fragment_recipe_list"
+        tools:layout="@layout/fragment_recipe_list" >
+        <action
+            android:id="@+id/action_receipeListFragment_to_recipeFragment"
+            app:destination="@id/recipeFragment" />
+    </fragment>
+</navigation>
