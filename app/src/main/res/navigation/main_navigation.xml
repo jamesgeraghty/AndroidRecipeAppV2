@@ -6,22 +6,29 @@
     app:startDestination="@id/recipeFragment">
 
     <fragment
-        android:id="@+id/recipeFragment"
-        android:name="org.wit.recipesapp.fragments.RecipeFragment"
-        android:label="fragment_recipe"
-        tools:layout="@layout/fragment_recipe" >
-        <action
-            android:id="@+id/action_recipeFragment_to_receipeListFragment"
-            app:destination="@id/receipeListFragment"
-            app:enterAnim="@android:anim/fade_in" />
-    </fragment>
-    <fragment
         android:id="@+id/receipeListFragment"
-        android:name="org.wit.recipesapp.fragments.ReceipeListFragment"
+        android:name="org.wit.recipesapp.fragments.RecipeListFragment"
         android:label="fragment_recipe_list"
         tools:layout="@layout/fragment_recipe_list" >
         <action
             android:id="@+id/action_receipeListFragment_to_recipeFragment"
             app:destination="@id/recipeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="org.wit.recipesapp.fragments.RecipeFragment"
+        android:label="fragment_recipe"
+        tools:layout="@layout/fragment_recipe" >
+        <action
+            android:id="@+id/action_recipeFragment_to_recipeListFragment"
+            app:destination="@id/receipeListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+        <argument
+            android:name="@string/button_addRecipe"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

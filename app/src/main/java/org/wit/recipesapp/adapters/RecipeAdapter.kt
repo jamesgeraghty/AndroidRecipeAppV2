@@ -13,15 +13,16 @@ interface RecipeListener {
     fun onRecipeClick(recipe: RecipeModel)
 }
 
-class RecipeAdapter constructor(private var recipes: List<RecipeModel>,
-    private val listener: RecipeListener) :
+class RecipeAdapter (private var recipes: List<RecipeModel>,
+    private val listener: RecipeListener
+    ) :
     RecyclerView.Adapter<RecipeAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardRecipeBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return MainHolder(binding)
+        return MainHolder(binding = binding)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {

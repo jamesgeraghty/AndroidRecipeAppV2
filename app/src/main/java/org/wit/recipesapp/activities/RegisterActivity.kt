@@ -68,14 +68,14 @@ RegisterActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item_cancel -> {
-                finish()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+   // override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    //    when (item.itemId) {
+     //       R.id.item_cancel -> {
+     //           finish()
+    //        }
+   //     }
+ //       return super.onOptionsItemSelected(item)
+ //   }
 
     private fun registerReturnCallback() {
         returnIntentLauncher =

@@ -132,18 +132,18 @@ class RecipeActivity : AppCompatActivity(){
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item?.itemId) {
-            R.id.item_delete -> {
-                app.recipes.delete(recipe)
-                finish()
-            }
-            R.id.item_cancel -> {
-                finish()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+  //  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+  //      when (item?.itemId) {
+        //    R.id.item_delete -> {
+     //           app.recipes.delete(recipe)
+     //           finish()
+     //       }
+         //   R.id.item_cancel -> {
+       //         finish()
+     //       }
+     //   }
+     //   return super.onOptionsItemSelected(item)
+   // }
     private fun registerImagePickerCallback() {
         imageIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
