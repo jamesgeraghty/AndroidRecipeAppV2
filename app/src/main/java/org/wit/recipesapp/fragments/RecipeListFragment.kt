@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.adapters.RecipeListener
@@ -40,14 +41,13 @@ class RecipeListFragment : Fragment(), RecipeListener  {
         _fragBinding = FragmentRecipeListBinding.inflate(inflater, container, false)
         val root = fragBinding.root
         activity?.title = getString(R.string.menu_addRecipe)
-        loadRecipes()
-        registerRefreshCallback()
-        registerMapCallback()
-        return view
+        fragBinding.recyclerView.setLayoutManager(LinearLayoutManager(activity))
+        fragBinding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
+        return root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_recipe, menu)
+        inflater.inflate(R.menu.menu_recipe_list, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -73,10 +73,14 @@ class RecipeListFragment : Fragment(), RecipeListener  {
             }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _fragBinding = null
     }
+
+
+
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())

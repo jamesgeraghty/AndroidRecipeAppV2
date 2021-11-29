@@ -19,7 +19,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.DonationX.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Recipe.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.DonationX.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.Recipe.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

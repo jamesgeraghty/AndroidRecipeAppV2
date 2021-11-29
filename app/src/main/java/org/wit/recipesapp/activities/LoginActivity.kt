@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.wit.recipesapp.R
 
 import org.wit.recipesapp.databinding.ActivityLoginBinding
+import org.wit.recipesapp.fragments.RecipeListFragment
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.UserModel
 import timber.log.Timber
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
             var user: UserModel? = app.users.findAll().firstOrNull { it.email == email }
             if (user != null) {
                 if (binding.password.text.toString() == user.password) {
-                    val launcherIntent = Intent(this, RecipeListActivity::class.java)
+                    val launcherIntent = Intent(this, RecipeListFragment::class.java)
                     launcherIntent.putExtra("user", user)
                     recipeIntentLauncher.launch(launcherIntent)
                 } else {

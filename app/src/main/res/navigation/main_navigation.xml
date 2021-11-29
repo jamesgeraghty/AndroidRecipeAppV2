@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/recipeFragment">
+    app:startDestination="@id/recipeListFragment">
 
     <fragment
-        android:id="@+id/receipeListFragment"
+        android:id="@+id/recipeListFragment"
         android:name="org.wit.recipesapp.fragments.RecipeListFragment"
-        android:label="fragment_recipe_list"
+
         tools:layout="@layout/fragment_recipe_list" >
         <action
             android:id="@+id/action_receipeListFragment_to_recipeFragment"
@@ -18,11 +18,11 @@
     <fragment
         android:id="@+id/recipeFragment"
         android:name="org.wit.recipesapp.fragments.RecipeFragment"
-        android:label="fragment_recipe"
+
         tools:layout="@layout/fragment_recipe" >
         <action
             android:id="@+id/action_recipeFragment_to_recipeListFragment"
-            app:destination="@id/receipeListFragment"
+            app:destination="@id/recipeListFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
 
