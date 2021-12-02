@@ -8,7 +8,7 @@ internal fun getId(): Long {
     return lastId++
 }
 
-class RecipeMemStore : RecipeStore {
+object RecipeManager  : RecipeStore {
 
     val recipes = ArrayList<RecipeModel>()
 

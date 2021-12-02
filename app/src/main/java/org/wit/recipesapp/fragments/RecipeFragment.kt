@@ -7,6 +7,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -18,6 +21,7 @@ import org.wit.recipesapp.R
 //import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.databinding.FragmentRecipeBinding
+import org.wit.recipesapp.helpers.showImagePicker
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
 import org.wit.recipesapp.models.UserModel
@@ -43,6 +47,9 @@ class RecipeFragment : Fragment() {
     lateinit var navController: NavController
     var recipe = RecipeModel()
     var user = UserModel()
+    private lateinit var recipeViewModel: RecipeViewModel
+
+
     var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,14 +62,18 @@ class RecipeFragment : Fragment() {
         registerImagePickerCallback()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         _fragBinding = FragmentRecipeBinding.inflate(inflater, container, false)
         val root = fragBinding.root
-        activity?.title = getString(R.string.app_name)
+        activity?.title = getString(R.string.action_recipe)
+
+        recipeViewModel =
+            ViewModelProvider(this).get(RecipeViewModel::class.java)
+        //val textView: TextView = root.findViewById(R.id.text_home)
+        recipeViewModel.text.observe(viewLifecycleOwner, Observer {
+            //textView.text = it
+        })
 
         fragBinding.btnAdd.setOnClickListener() {
             recipe.title = fragBinding.recipeTitle.text.toString()
@@ -75,8 +86,15 @@ class RecipeFragment : Fragment() {
                     app.recipes.update(recipe.copy())
                 } else {
                     app.recipes.create(recipe.copy())
+                    Timber.i("add Button Pressed: $recipe.title")
                 }
+                navController.navigate(R.id.recipeListFragment)
             }
+        }
+        fragBinding.chooseImage.setOnClickListener {
+            Timber.i("Select image")
+            showImagePicker(imageIntentLauncher)    // trigger the image picker
+
         }
         return root;
     }

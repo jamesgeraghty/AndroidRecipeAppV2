@@ -11,8 +11,11 @@
 
         tools:layout="@layout/fragment_recipe_list" >
         <action
-            android:id="@+id/action_receipeListFragment_to_recipeFragment"
+            android:id="@+id/action_recipeListFragment_to_recipeFragment"
             app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
     </fragment>
 
     <fragment
@@ -27,8 +30,21 @@
             app:exitAnim="@anim/nav_default_exit_anim" />
 
         <argument
-            android:name="@string/button_addRecipe"
+            android:name="recipeid"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="org.wit.recipesapp.fragments.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="org.wit.recipesapp.fragments.RecipeDetailFragment"
+        android:label="RecipeDetailFragment" >
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
     </fragment>
 
 </navigation>
