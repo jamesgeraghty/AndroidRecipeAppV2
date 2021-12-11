@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.wit.recipesapp.R
 
 import org.wit.recipesapp.databinding.ActivityLoginBinding
-import org.wit.recipesapp.fragments.RecipeListFragment
+import org.wit.recipesapp.ui.recipeList.RecipeListFragment
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.UserModel
 import timber.log.Timber

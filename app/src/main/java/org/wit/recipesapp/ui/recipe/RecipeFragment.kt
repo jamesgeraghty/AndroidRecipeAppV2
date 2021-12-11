@@ -1,25 +1,23 @@
-package org.wit.recipesapp.fragments
+package org.wit.recipesapp.ui.recipe
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.wit.recipesapp.R
 //import androidx.recyclerview.widget.LinearLayoutManager
-import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.databinding.FragmentRecipeBinding
 import org.wit.recipesapp.helpers.showImagePicker
 import org.wit.recipesapp.main.MainApp
@@ -32,11 +30,6 @@ import timber.log.Timber
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RecipeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RecipeFragment : Fragment() {
 
     lateinit var app: MainApp
@@ -71,8 +64,8 @@ class RecipeFragment : Fragment() {
         recipeViewModel =
             ViewModelProvider(this).get(RecipeViewModel::class.java)
         //val textView: TextView = root.findViewById(R.id.text_home)
-        recipeViewModel.text.observe(viewLifecycleOwner, Observer {
-            //textView.text = it
+        recipeViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
+                status -> status?.let { render(status) }
         })
 
         fragBinding.btnAdd.setOnClickListener() {
@@ -98,6 +91,21 @@ class RecipeFragment : Fragment() {
         }
         return root;
     }
+
+
+    private fun render(status: Boolean) {
+        when (status) {
+            true -> {
+                view?.let {
+                    //Uncomment this if you want to immediately return to Report
+                    //findNavController().popBackStack()
+                }
+            }
+            false -> Toast.makeText(context,getString(R.string.recipeError), Toast.LENGTH_LONG).show()
+        }
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
     }
@@ -129,6 +137,7 @@ class RecipeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
     }
 
     private fun registerImagePickerCallback() {

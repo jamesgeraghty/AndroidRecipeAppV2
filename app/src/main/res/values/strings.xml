@@ -50,4 +50,9 @@
     messageLoading
     <string name="messageLoading">Loading!</string>
 
+    <string name="recipeError">Error!</string>
+
+    <string name="auth_failed">login failed!</string>
+
+
 </resources>

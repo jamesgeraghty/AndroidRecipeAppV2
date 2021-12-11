@@ -1,8 +1,9 @@
-package org.wit.recipesapp.fragments
+package org.wit.recipesapp.ui.recipeList
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,24 +17,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
-import org.wit.recipesapp.adapters.RecipeListener
-import org.wit.recipesapp.databinding.FragmentRecipeBinding
+import org.wit.recipesapp.adapters.RecipeClickListener
+
 import org.wit.recipesapp.databinding.FragmentRecipeListBinding
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
-import org.wit.recipesapp.helpers.createLoader
-import org.wit.recipesapp.helpers.hideLoader
-import org.wit.recipesapp.helpers.showLoader
 
 
-class RecipeListFragment : Fragment(), RecipeListener  {
+class RecipeListFragment : Fragment(), RecipeClickListener {
+
+    lateinit var app: MainApp
     private var _fragBinding: FragmentRecipeListBinding? = null
     private val fragBinding get() = _fragBinding!!
-    lateinit var app: MainApp
-    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var recipeListViewModel: RecipeListViewModel
-    private val reportViewModel : RecipeListViewModel by activityViewModels()
+
+
+
+    //private val recipeListViewModel : RecipeListViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class RecipeListFragment : Fragment(), RecipeListener  {
         app = activity?.application as MainApp
         setHasOptionsMenu(true)
 
-        registerRefreshCallback()
+
     }
 
     override fun onCreateView(
@@ -50,18 +50,21 @@ class RecipeListFragment : Fragment(), RecipeListener  {
     ): View? {
         _fragBinding = FragmentRecipeListBinding.inflate(inflater, container, false)
         val root = fragBinding.root
-        activity?.title = getString(R.string.action_recipeList)
+        //activity?.title = getString(R.string.action_recipeList)
 
-        recipeListViewModel =
-            ViewModelProvider(this).get(RecipeListViewModel::class.java)
-        //val textView: TextView = root.findViewById(R.id.text_gallery)
-        reportViewModel.text.observe(viewLifecycleOwner, Observer {
-            //textView.text = it
+        fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        recipeListViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
+        recipeListViewModel.observableRecipesList.observe(viewLifecycleOwner, Observer {
+          //     recipe ->
+         //  recipe?.let { render(recipe) }
         })
 
-        fragBinding.recyclerView.setLayoutManager(LinearLayoutManager(activity))
-        fragBinding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
-
+      fragBinding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
+        val fab: FloatingActionButton = fragBinding.fab
+        fab.setOnClickListener {
+            val action = RecipeListFragmentDirections.actionRecipeListFragmentToDetailFragment()
+            findNavController().navigate(action)
+        }
         return root
     }
 
@@ -88,13 +91,13 @@ class RecipeListFragment : Fragment(), RecipeListener  {
     }
 
     override fun onRecipeClick(recipe: RecipeModel) {
-      //  val action = RecipeListFragmentDirections.actionRecipeListFragmentToRecipeDetailFragment(recipe.id)
-        findNavController().navigate(R.id.recipeFragment)
+        val action = RecipeListFragmentDirections.actionRecipeListFragmentToDetailFragment()
+        findNavController().navigate(action)
     }
 
 
-    fun showRecipes (recipes: List<RecipeModel>) {
-        fragBinding.recyclerView.adapter = RecipeAdapter(recipes, this)
+    fun showRecipes (recipe: List<RecipeModel>) {
+        fragBinding.recyclerView.adapter = RecipeAdapter(recipe, this)
         fragBinding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
@@ -105,26 +108,16 @@ class RecipeListFragment : Fragment(), RecipeListener  {
                 arguments = Bundle().apply { }
             }
     }
-
+    override fun onResume() {
+        super.onResume()
+        recipeListViewModel.load()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _fragBinding = null
     }
 
-
-
-    private fun registerRefreshCallback() {
-        refreshIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { loadRecipes() }
-    }
-
-    private fun registerMapCallback() {
-        mapIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            {  }
-    }
     private fun loadRecipes() {
         showRecipes(app.recipes.findAll())
     }

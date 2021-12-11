@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.wit.recipesapp.fragments.RecipeFragment">
+    tools:context="org.wit.recipesapp.ui.recipe.RecipeFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                 android:text="@string/button_addImage"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/btnAdd"
+                app:layout_constraintBottom_toTopOf="@+id/recipeLocation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description"
@@ -140,7 +140,7 @@
                 app:layout_constraintHorizontal_bias="0.363"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description"
-                app:layout_constraintVertical_bias="0.547" />
+                app:layout_constraintVertical_bias="0.858" />
 
             <Button
                 android:id="@+id/btnDelete"
@@ -160,7 +160,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description"
                 app:layout_constraintVertical_bias="1.0" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,20 +7,20 @@
 
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="org.wit.recipesapp.fragments.RecipeListFragment"
+        android:name="org.wit.recipesapp.ui.recipeList.RecipeListFragment"
 
         tools:layout="@layout/fragment_recipe_list" >
         <action
             android:id="@+id/action_recipeListFragment_to_recipeFragment"
             app:destination="@id/recipeFragment" />
         <action
-            android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
-            app:destination="@id/recipeDetailFragment" />
+            android:id="@+id/action_recipeListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="org.wit.recipesapp.fragments.RecipeFragment"
+        android:name="org.wit.recipesapp.ui.recipe.RecipeFragment"
 
         tools:layout="@layout/fragment_recipe" >
         <action
@@ -39,11 +39,15 @@
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
     <fragment
-        android:id="@+id/recipeDetailFragment"
-        android:name="org.wit.recipesapp.fragments.RecipeDetailFragment"
-        android:label="RecipeDetailFragment" >
+        android:id="@+id/detailFragment"
+        android:name="org.wit.recipesapp.ui.details.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
         <action
-            android:id="@+id/action_recipeDetailFragment_to_recipeListFragment"
+            android:id="@+id/action_detailFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_recipeListFragment2"
             app:destination="@id/recipeListFragment" />
     </fragment>
 
