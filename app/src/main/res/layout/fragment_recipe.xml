@@ -74,8 +74,8 @@
 
             <Button
                 android:id="@+id/chooseImage"
-                android:layout_width="153dp"
-                android:layout_height="47dp"
+                android:layout_width="413dp"
+                android:layout_height="46dp"
                 android:layout_margin="16dp"
                 android:background="@color/colorAccent"
                 android:paddingTop="8dp"
@@ -83,11 +83,12 @@
                 android:text="@string/button_addImage"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/recipeLocation"
+                app:layout_constraintBottom_toTopOf="@+id/recipeImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description"
-                app:layout_constraintVertical_bias="0.283" />
+                app:layout_constraintTop_toBottomOf="@+id/recipeLocation"
+                app:layout_constraintVertical_bias="0.0" />
+
 
             <ImageView
                 android:id="@+id/recipeImage"
@@ -96,17 +97,15 @@
                 android:layout_marginBottom="56dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.493"
+                app:layout_constraintHorizontal_bias="0.467"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@mipmap/ic_launcher" />
 
             <Button
                 android:id="@+id/recipeLocation"
-                android:layout_width="188dp"
-                android:layout_height="49dp"
-                android:layout_margin="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="48dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="72dp"
                 android:background="@color/red"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
@@ -119,14 +118,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnAdd"
-                app:layout_constraintTop_toBottomOf="@+id/chooseImage"
-                app:layout_constraintVertical_bias="0.109" />
+                app:layout_constraintTop_toBottomOf="@+id/description"
+                app:layout_constraintVertical_bias="0.276" />
 
             <Button
                 android:id="@+id/btnAdd"
-                android:layout_width="163dp"
-                android:layout_height="50dp"
-                android:layout_margin="16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="72dp"
                 android:background="@color/red"
                 android:paddingTop="8dp"
@@ -135,12 +133,13 @@
                 android:text="@string/button_addRecipe"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/recipeImage"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/recipeLocation"
-                app:layout_constraintHorizontal_bias="0.363"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description"
-                app:layout_constraintVertical_bias="0.858" />
+                app:layout_constraintVertical_bias="0.073" />
 
             <Button
                 android:id="@+id/btnDelete"
@@ -160,8 +159,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description"
                 app:layout_constraintVertical_bias="1.0" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>

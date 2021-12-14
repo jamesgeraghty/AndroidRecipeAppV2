@@ -22,6 +22,7 @@ import org.wit.recipesapp.adapters.RecipeClickListener
 import org.wit.recipesapp.databinding.FragmentRecipeListBinding
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
+import org.wit.recipesapp.ui.auth.LoggedInViewModel
 
 
 class RecipeListFragment : Fragment(), RecipeClickListener {
@@ -31,7 +32,8 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     private val fragBinding get() = _fragBinding!!
     private lateinit var recipeListViewModel: RecipeListViewModel
 
-
+    private val reportViewModel: RecipeListViewModel by activityViewModels()
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
 
     //private val recipeListViewModel : RecipeListViewModel by activityViewModels()
 
@@ -55,8 +57,8 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
         recipeListViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
         recipeListViewModel.observableRecipesList.observe(viewLifecycleOwner, Observer {
-          //     recipe ->
-         //  recipe?.let { render(recipe) }
+            //   recipes ->
+          // recipes?.let { render(recipes) }
         })
 
       fragBinding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)

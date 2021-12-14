@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import org.wit.recipesapp.R
+import org.wit.recipesapp.ui.home.Home
 
 class SplashActivity : AppCompatActivity() {
     lateinit var handler: Handler
@@ -17,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
 
         handler = Handler()
         handler.postDelayed({
-            val intent = Intent(this,Home::class.java)
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
             finish()
         }, SPLASH_TIME_OUT)
