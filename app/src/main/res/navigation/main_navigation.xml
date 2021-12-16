@@ -49,6 +49,7 @@
         <action
             android:id="@+id/action_detailFragment_to_recipeListFragment2"
             app:destination="@id/recipeListFragment" />
+
     </fragment>
 
 </navigation>

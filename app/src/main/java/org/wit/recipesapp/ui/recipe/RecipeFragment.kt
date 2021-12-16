@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
@@ -56,7 +58,8 @@ class RecipeFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?
+    ): View? {
         _fragBinding = FragmentRecipeBinding.inflate(inflater, container, false)
         val root = fragBinding.root
         activity?.title = getString(R.string.action_recipe)
@@ -75,12 +78,10 @@ class RecipeFragment : Fragment() {
                 Snackbar.make(it, R.string.enter_recipe_title, Snackbar.LENGTH_LONG)
                     .show()
             } else {
-                if (edit) {
-                    app.recipes.update(recipe.copy())
-                } else {
-                    app.recipes.create(recipe.copy())
+
+                    recipeViewModel.addRecipe(recipe.copy())
                     Timber.i("add Button Pressed: $recipe.title")
-                }
+
                 navController.navigate(R.id.recipeListFragment)
             }
         }
@@ -98,7 +99,7 @@ class RecipeFragment : Fragment() {
             true -> {
                 view?.let {
                     //Uncomment this if you want to immediately return to Report
-                    //findNavController().popBackStack()
+                    findNavController().popBackStack()
                 }
             }
             false -> Toast.makeText(context,getString(R.string.recipeError), Toast.LENGTH_LONG).show()

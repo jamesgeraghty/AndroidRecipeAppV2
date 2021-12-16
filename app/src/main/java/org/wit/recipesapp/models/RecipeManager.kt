@@ -1,6 +1,18 @@
 package org.wit.recipesapp.models
 
+import android.net.Uri
+import com.google.gson.*
 import timber.log.Timber.i
+import java.lang.reflect.Type
+import android.content.Context
+
+import com.google.gson.*
+//import com.google.gson.reflect.TypeToken
+import org.wit.recipesapp.helpers.*
+import timber.log.Timber
+
+import java.util.*
+
 
 var lastId = 0L
 
@@ -47,4 +59,24 @@ object RecipeManager  : RecipeStore {
     private fun logAll() {
         recipes.forEach { i("$it") }
     }
+}
+
+class UriParser : JsonDeserializer<Uri>, JsonSerializer<Uri> {
+    override fun deserialize(
+        json: JsonElement?,
+        typeOfT: Type?,
+        context: JsonDeserializationContext?
+    ): Uri {
+        return Uri.parse(json?.asString)
+    }
+
+    override fun serialize(
+        src: Uri?,
+        typeOfSrc: Type?,
+        context: JsonSerializationContext?
+    ): JsonElement {
+        return JsonPrimitive(src.toString())
+    }
+
+
 }
