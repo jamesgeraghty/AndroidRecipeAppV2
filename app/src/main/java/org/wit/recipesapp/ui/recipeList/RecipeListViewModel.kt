@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.wit.recipesapp.models.RecipeManager
 import org.wit.recipesapp.models.RecipeModel
+import timber.log.Timber
 
 class RecipeListViewModel : ViewModel() {
 
@@ -15,6 +16,7 @@ class RecipeListViewModel : ViewModel() {
 
     init {
         load()
+        Timber.i("RecipeViewModel  has been created!")
     }
 
     fun load() {

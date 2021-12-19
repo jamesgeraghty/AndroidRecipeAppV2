@@ -40,7 +40,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app = activity?.application as MainApp
+       // app = activity?.application as MainApp
         setHasOptionsMenu(true)
     }
 
@@ -50,14 +50,14 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     ): View? {
 
         _fragBinding = FragmentRecipeListBinding.inflate(inflater, container, false)
-        val root = fragBinding.root
+        val view = fragBinding.root
      //   activity?.title = getString(R.string.action_recipeList)
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
         recipeListViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
         recipeListViewModel.observableRecipesList.observe(viewLifecycleOwner, Observer {
                recipes ->
-           recipes?.let { render(recipes) }
+           recipes?.let { render(recipes as ArrayList<RecipeModel>)}
         })
 
     //  fragBinding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
@@ -68,9 +68,18 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
             val action = RecipeListFragmentDirections.actionRecipeListFragmentToRecipeFragment(this.toString())
             findNavController().navigate(action)
         }
-        return root
+        return view
     }
-
+    private fun render(recipeList: ArrayList<RecipeModel>) {
+        fragBinding.recyclerView.adapter = RecipeAdapter(recipeList, this)
+        if (recipeList.isEmpty()) {
+            fragBinding.recyclerView.visibility = View.GONE
+            fragBinding.recipesNotFound.visibility = View.VISIBLE
+        } else {
+            fragBinding.recyclerView.visibility = View.VISIBLE
+            fragBinding.recipesNotFound.visibility = View.GONE
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_recipe_list, menu)
@@ -82,27 +91,15 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
             requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
 
-    private fun render(recipeList: List<RecipeModel>) {
-        fragBinding.recyclerView.adapter = RecipeAdapter(recipeList, this)
-        if (recipeList.isEmpty()) {
-            fragBinding.recyclerView.visibility = View.GONE
-            fragBinding.recipesNotFound.visibility = View.VISIBLE
-        } else {
-            fragBinding.recyclerView.visibility = View.VISIBLE
-            fragBinding.recipesNotFound.visibility = View.GONE
-        }
-    }
+
 
     override fun onRecipeClick(recipe: RecipeModel) {
-        val action = RecipeListFragmentDirections.actionRecipeListFragmentToDetailFragment()
+        val action = RecipeListFragmentDirections.actionRecipeListFragmentToDetailFragment(recipe.id)
         findNavController().navigate(action)
     }
 
 
-    fun showRecipes (recipe: List<RecipeModel>) {
-        fragBinding.recyclerView.adapter = RecipeAdapter(recipe, this)
-        fragBinding.recyclerView.adapter?.notifyDataSetChanged()
-    }
+
 
     companion object {
         @JvmStatic

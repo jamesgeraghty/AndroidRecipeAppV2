@@ -14,8 +14,7 @@ interface RecipeClickListener {
 }
 
 class RecipeAdapter (private var recipes: List<RecipeModel>,
-    private val listener: RecipeClickListener
-    )
+                     private val listener: RecipeClickListener)
 
     :RecyclerView.Adapter<RecipeAdapter.MainHolder>() {
 
@@ -33,14 +32,15 @@ class RecipeAdapter (private var recipes: List<RecipeModel>,
 
     override fun getItemCount(): Int = recipes.size
 
-    class MainHolder(private val binding: CardRecipeBinding) :
+    class MainHolder( val binding: CardRecipeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(recipe: RecipeModel, listener: RecipeClickListener) {
-            binding.recipeTitle.text = recipe.title
-            binding.description.text = recipe.description
+            binding.root.tag = recipe
+            binding.recipe = recipe
             Picasso.get().load(recipe.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onRecipeClick(recipe) }
+            binding.executePendingBindings()
         }
     }
 }

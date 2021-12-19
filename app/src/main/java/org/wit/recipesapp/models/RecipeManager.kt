@@ -4,12 +4,8 @@ import android.net.Uri
 import com.google.gson.*
 import timber.log.Timber.i
 import java.lang.reflect.Type
-import android.content.Context
 
-import com.google.gson.*
 //import com.google.gson.reflect.TypeToken
-import org.wit.recipesapp.helpers.*
-import timber.log.Timber
 
 import java.util.*
 
@@ -26,6 +22,10 @@ object RecipeManager  : RecipeStore {
 
     override fun findAll(): List<RecipeModel> {
         return recipes
+    }
+
+    fun findById(id: Long): RecipeModel? {
+        return recipes.find { it.id == id }
     }
 
     override fun create(recipe: RecipeModel) {
@@ -48,6 +48,7 @@ object RecipeManager  : RecipeStore {
     }
 
     override fun delete(recipe: RecipeModel) {
+        val recipeList = findAll() as java.util.ArrayList<RecipeModel>
         var foundRecipe: RecipeModel? = recipes.find { p -> p.id == recipe.id }
         if (foundRecipe != null) {
             recipes.remove(recipe)

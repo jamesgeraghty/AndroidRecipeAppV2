@@ -46,10 +46,10 @@
         <action
             android:id="@+id/action_detailFragment_to_recipeListFragment"
             app:destination="@id/recipeListFragment" />
-        <action
-            android:id="@+id/action_detailFragment_to_recipeListFragment2"
-            app:destination="@id/recipeListFragment" />
 
+        <argument
+            android:name="recipeid"
+            app:argType="long" />
     </fragment>
 
 </navigation>
