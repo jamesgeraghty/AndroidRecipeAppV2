@@ -30,20 +30,20 @@ class RecipesMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener
         contentBinding.mapView.onCreate(savedInstanceState)
         contentBinding.mapView.getMapAsync {
             map = it
-            configureMap()
+           // configureMap()
         }
     }
 
-    fun configureMap() {
-        map.setOnMarkerClickListener(this)
-        map.uiSettings.setZoomControlsEnabled(true)
-        app.recipes.findAll().forEach {
-            val loc = LatLng(it.lat, it.lng)
-            val options = MarkerOptions().title(it.title).position(loc)
-            map.addMarker(options).tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
-        }
-    }
+//  / / fun configureMap() {
+//     //   map.setOnMarkerClickListener(this)
+//     / /  map.uiSettings.setZoomControlsEnabled(true)
+//       / app.recipes.findAll().forEach {
+//            val loc = LatLng(it.lat, it.lng)
+//            val options = MarkerOptions().title(it.title).position(loc)
+//            map.addMarker(options)?.tag = it.id
+//            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+//        }
+//    }
 
     override fun onMarkerClick(marker: Marker): Boolean {
         contentBinding.currentTitle.text = marker.title

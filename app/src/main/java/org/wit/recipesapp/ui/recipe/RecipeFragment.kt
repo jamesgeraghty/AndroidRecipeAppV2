@@ -1,23 +1,27 @@
-package org.wit.recipesapp.fragments
+package org.wit.recipesapp.ui.recipe
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.wit.recipesapp.R
 //import androidx.recyclerview.widget.LinearLayoutManager
-import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.databinding.FragmentRecipeBinding
+import org.wit.recipesapp.helpers.showImagePicker
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
 import org.wit.recipesapp.models.UserModel
@@ -28,11 +32,6 @@ import timber.log.Timber
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RecipeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RecipeFragment : Fragment() {
 
     lateinit var app: MainApp
@@ -43,6 +42,9 @@ class RecipeFragment : Fragment() {
     lateinit var navController: NavController
     var recipe = RecipeModel()
     var user = UserModel()
+    private lateinit var recipeViewModel: RecipeViewModel
+
+
     var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,14 +57,19 @@ class RecipeFragment : Fragment() {
         registerImagePickerCallback()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?
     ): View? {
         _fragBinding = FragmentRecipeBinding.inflate(inflater, container, false)
         val root = fragBinding.root
-        activity?.title = getString(R.string.app_name)
+        activity?.title = getString(R.string.action_recipe)
+
+        recipeViewModel =
+            ViewModelProvider(this).get(RecipeViewModel::class.java)
+        //val textView: TextView = root.findViewById(R.id.text_home)
+        recipeViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
+                status -> status?.let { render(status) }
+        })
 
         fragBinding.btnAdd.setOnClickListener() {
             recipe.title = fragBinding.recipeTitle.text.toString()
@@ -71,16 +78,38 @@ class RecipeFragment : Fragment() {
                 Snackbar.make(it, R.string.enter_recipe_title, Snackbar.LENGTH_LONG)
                     .show()
             } else {
-                if (edit) {
-                    app.recipes.update(recipe.copy())
-                } else {
-                    app.recipes.create(recipe.copy())
-                }
+
+                    recipeViewModel.addRecipe(recipe.copy())
+                    Timber.i("add Button Pressed: $recipe.title")
+
+                navController.navigate(R.id.recipeListFragment)
             }
+        }
+        fragBinding.chooseImage.setOnClickListener {
+            Timber.i("Select image")
+            showImagePicker(imageIntentLauncher)    // trigger the image picker
+
         }
         return root;
     }
 
+
+    private fun render(status: Boolean) {
+        when (status) {
+            true -> {
+                view?.let {
+                    //Uncomment this if you want to immediately return to Report
+                    findNavController().popBackStack()
+                }
+            }
+            false -> Toast.makeText(context,getString(R.string.recipeError), Toast.LENGTH_LONG).show()
+        }
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+    }
 
     companion object {
         @JvmStatic
@@ -109,6 +138,7 @@ class RecipeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
     }
 
     private fun registerImagePickerCallback() {

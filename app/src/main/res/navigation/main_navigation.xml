@@ -3,32 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/recipeFragment">
+    app:startDestination="@id/recipeListFragment">
 
     <fragment
-        android:id="@+id/receipeListFragment"
-        android:name="org.wit.recipesapp.fragments.RecipeListFragment"
-        android:label="fragment_recipe_list"
+        android:id="@+id/recipeListFragment"
+        android:name="org.wit.recipesapp.ui.recipeList.RecipeListFragment"
+
         tools:layout="@layout/fragment_recipe_list" >
         <action
-            android:id="@+id/action_receipeListFragment_to_recipeFragment"
+            android:id="@+id/action_recipeListFragment_to_recipeFragment"
             app:destination="@id/recipeFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/recipeFragment"
-        android:name="org.wit.recipesapp.fragments.RecipeFragment"
-        android:label="fragment_recipe"
+        android:name="org.wit.recipesapp.ui.recipe.RecipeFragment"
+
         tools:layout="@layout/fragment_recipe" >
         <action
             android:id="@+id/action_recipeFragment_to_recipeListFragment"
-            app:destination="@id/receipeListFragment"
+            app:destination="@id/recipeListFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
 
         <argument
-            android:name="@string/button_addRecipe"
+            android:name="recipeid"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="org.wit.recipesapp.fragments.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="org.wit.recipesapp.ui.details.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+
+        <argument
+            android:name="recipeid"
+            app:argType="long" />
     </fragment>
 
 </navigation>

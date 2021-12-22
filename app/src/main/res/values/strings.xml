@@ -38,8 +38,46 @@
     <string name="action_recipeList">Recipe List</string>
     <string name="action_recipe">New recipe</string>
 
-    <string name="nav_header_title">DonationX (Lab)</string>
-    <string name="nav_header_subtitle">voteforhomer@android.com</string>
+    <string name="nav_header_title">Recipe App</string>
+    <string name="nav_header_subtitle">recipeapp@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+
+    <string name="action_about">About Us</string>
+    <string name="about_title">Homer for President !!</string>
+    <string name="about_message">Hi, I\'m Homer\n\nPlease vote for me.\n\n Please Please Please Please!!</string>
+
+    <string name="recipesNotFound">No recipe Yet...\nAdd a recipe!</string>
+    messageLoading
+    <string name="messageLoading">Loading!</string>
+
+    <string name="recipeError">Error!</string>
+
+    <string name="auth_failed">login failed!</string>
+
+
+    <string name="label_emailpassword">Email/Password Authentication</string>
+    <string name="desc_emailpassword">Use an email and password to authenticate with Firebase.</string>
+
+    <string name="create_account">Create Account</string>
+    <string name="send_link">Send Link</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="verify_email">Verify Email</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="loading">Loading…</string>
+    <string name="signed_in">Signed In</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="token_null">Token: null</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="desc_firebase_lockup">Firebase logo and name</string>
+
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="firebase_user_management">Firebase User Management</string>
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="emailpassword_title_text">Please Login Below</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    deleteRecipe
+    <string name="deleteRecipe">Delete Recipe</string>e
 
 </resources>

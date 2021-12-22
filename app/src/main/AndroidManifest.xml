@@ -10,11 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Recipe">
-        <activity
-            android:name=".activities.Home"
+        <activity android:name=".ui.auth.Login"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.home.Home"
+            android:exported="true" />
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true">
@@ -25,18 +32,7 @@
             </intent-filter>
             android:theme="@style/Theme.Recipe">
         </activity>
-        <activity
-            android:name=".activities.RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".activities.RecipesMapsActivity"
             android:exported="false" />
@@ -49,16 +45,7 @@
             android:name=".activities.MapActivity"
             android:exported="true"
             android:label="@string/title_activity_map" />
-        <activity
-            android:name=".activities.RecipeListActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activities.RecipeActivity" />
     </application>
 
 </manifest>

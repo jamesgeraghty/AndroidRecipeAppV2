@@ -2,8 +2,9 @@ package org.wit.recipesapp.models
 
 import android.content.Context
 import android.net.Uri
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
 import com.google.gson.*
-import com.google.gson.reflect.TypeToken
+
 import org.wit.recipesapp.helpers.*
 import timber.log.Timber
 import java.lang.reflect.Type
@@ -39,8 +40,6 @@ class RecipeJSONStore(private val context: Context) : RecipeStore {
         recipes.add(recipe)
         serialize()
     }
-
-
     override fun update(recipe: RecipeModel) {
         val recipesList = findAll() as ArrayList<RecipeModel>
         var foundRecipe: RecipeModel? = recipesList.find { p -> p.id == recipe.id }
@@ -76,22 +75,22 @@ class RecipeJSONStore(private val context: Context) : RecipeStore {
     }
 }
 
-class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
-    override fun deserialize(
-        json: JsonElement?,
-        typeOfT: Type?,
-        context: JsonDeserializationContext?
-    ): Uri {
-        return Uri.parse(json?.asString)
-    }
-
-    override fun serialize(
-        src: Uri?,
-        typeOfSrc: Type?,
-        context: JsonSerializationContext?
-    ): JsonElement {
-        return JsonPrimitive(src.toString())
-    }
-
-
-}
+//class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
+//    override fun deserialize(
+//        json: JsonElement?,
+//        typeOfT: Type?,
+//        context: JsonDeserializationContext?
+//    ): Uri {
+//        return Uri.parse(json?.asString)
+//    }
+//
+//    override fun serialize(
+//        src: Uri?,
+//        typeOfSrc: Type?,
+//        context: JsonSerializationContext?
+//    ): JsonElement {
+//        return JsonPrimitive(src.toString())
+//    }
+//
+//
+//}
