@@ -61,10 +61,10 @@ class DetailFragment : Fragment() {
             fragBinding.recipevm = detailViewModel
         }
 
-        override fun onResume() {
-            super.onResume()
-            detailViewModel.getRecipe(args.recipeid)
-        }
+    override fun onResume() {
+        super.onResume()
+        detailViewModel.getRecipe(args.recipeid)
+    }
 
         override fun onDestroyView() {
             super.onDestroyView()

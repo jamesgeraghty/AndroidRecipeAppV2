@@ -1,5 +1,6 @@
 package org.wit.recipesapp.ui.recipeList
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -15,12 +16,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.adapters.RecipeClickListener
 
 import org.wit.recipesapp.databinding.FragmentRecipeListBinding
+import org.wit.recipesapp.helpers.showLoader
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
 import org.wit.recipesapp.models.UserModel
@@ -33,7 +36,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     private var _fragBinding: FragmentRecipeListBinding? = null
     private val fragBinding get() = _fragBinding!!
     private lateinit var recipeListViewModel: RecipeListViewModel
-    //lateinit var navController: NavController
+    lateinit var loader : AlertDialog
    // private val recipeListViewModel: RecipeListViewModel by activityViewModels()
    // private val loggedInViewModel : LoggedInViewModel by activityViewModels()
 //
@@ -60,8 +63,17 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
            recipes?.let { render(recipes as ArrayList<RecipeModel>)}
         })
 
-    //  fragBinding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
-
+//    //  fragBinding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
+//        val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                showLoader(loader,"Deleting Donation")
+//                val adapter = fragBinding.recyclerView.adapter as RecipeAdapter
+//                adapter.removeAt(viewHolder.adapterPosition)
+//                reportViewModel.delete(recipeListViewModel.liveFirebaseUser.value?.email!!,
+//                    (viewHolder.itemView.tag as RecipeModel)._id)
+//                hideLoader(loader)
+//            }
+//        }
 
         val fab: FloatingActionButton = fragBinding.fab
         fab.setOnClickListener {
@@ -99,7 +111,19 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     }
 
 
+    fun setSwipeRefresh() {
+        fragBinding.swiperefresh.setOnRefreshListener {
+            fragBinding.swiperefresh.isRefreshing = true
+            showLoader(loader,"Downloading Donations")
+            //Retrieve Donation List again here
 
+        }
+    }
+
+    fun checkSwipeRefresh() {
+        if (fragBinding.swiperefresh.isRefreshing)
+            fragBinding.swiperefresh.isRefreshing = false
+    }
 
     companion object {
         @JvmStatic

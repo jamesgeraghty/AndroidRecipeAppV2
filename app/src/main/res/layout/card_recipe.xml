@@ -17,52 +17,59 @@
         android:layout_marginBottom="8dp"
         android:elevation="24dp">
 
-    <RelativeLayout
-        android:id="@+id/cardDRecipe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
-
-        <ImageView
-            android:id="@+id/imageIcon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/change_recipe_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/recipeTitle"
-            android:layout_width="142dp"
+        <RelativeLayout
+            android:id="@+id/cardDRecipe"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="134dp"
-            android:text="@{recipe.title}"
-            android:textAlignment="viewStart"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.048"
-            app:layout_constraintStart_toEndOf="@+id/imageIcon"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="A Title" />
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="210dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@{recipe.description}"
-            android:textAlignment="viewStart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.052"
-            app:layout_constraintStart_toEndOf="@+id/imageIcon"
-            app:layout_constraintTop_toBottomOf="@id/recipeTitle"
-            tools:text="A Description" />
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/imageIcon"
+                android:layout_width="62dp"
+                android:layout_height="53dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/change_recipe_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/recipeTitle"
+                android:layout_width="123dp"
+                android:layout_height="54dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="19dp"
+                android:layout_toEndOf="@+id/description"
+                android:text="@{recipe.title}"
+                android:textAlignment="viewStart"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.048"
+                app:layout_constraintStart_toEndOf="@+id/imageIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="A Title" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="41dp"
+                android:layout_toEndOf="@+id/imageIcon"
+                android:text="@{recipe.description}"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.052"
+                app:layout_constraintStart_toEndOf="@+id/imageIcon"
+                app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                tools:text="A Description" />
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>
