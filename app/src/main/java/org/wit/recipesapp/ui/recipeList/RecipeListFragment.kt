@@ -1,5 +1,6 @@
 package org.wit.recipesapp.ui.recipeList
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -14,17 +15,23 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.adapters.RecipeClickListener
 
 import org.wit.recipesapp.databinding.FragmentRecipeListBinding
+import org.wit.recipesapp.helpers.createLoader
+import org.wit.recipesapp.helpers.showLoader
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
 import org.wit.recipesapp.models.UserModel
 import org.wit.recipesapp.ui.auth.LoggedInViewModel
+import org.wit.recipesapp.utils.SwipeToDeleteCallback
+import org.wit.recipesapp.utils.hideLoader
 
 
 class RecipeListFragment : Fragment(), RecipeClickListener {
@@ -33,9 +40,9 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     private var _fragBinding: FragmentRecipeListBinding? = null
     private val fragBinding get() = _fragBinding!!
     private lateinit var recipeListViewModel: RecipeListViewModel
-    //lateinit var navController: NavController
+    lateinit var loader : AlertDialog
    // private val recipeListViewModel: RecipeListViewModel by activityViewModels()
-   // private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+  private val loggedInViewModel : LoggedInViewModel by activityViewModels()
 //
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +55,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        loader = createLoader(requireActivity())
         _fragBinding = FragmentRecipeListBinding.inflate(inflater, container, false)
         val view = fragBinding.root
      //   activity?.title = getString(R.string.action_recipeList)
@@ -58,10 +65,19 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         recipeListViewModel.observableRecipesList.observe(viewLifecycleOwner, Observer {
                recipes ->
            recipes?.let { render(recipes as ArrayList<RecipeModel>)}
+            hideLoader(loader)
+            checkSwipeRefresh()
         })
+        setSwipeRefresh()
+        val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = fragBinding.recyclerView.adapter as RecipeAdapter
+                adapter.removeAt(viewHolder.adapterPosition)
 
-    //  fragBinding.recyclerView.adapter = RecipeAdapter(app.recipes.findAll(), this)
-
+            }
+        }
+        val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
+        itemTouchDeleteHelper.attachToRecyclerView(fragBinding.recyclerView)
 
         val fab: FloatingActionButton = fragBinding.fab
         fab.setOnClickListener {
@@ -99,7 +115,19 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     }
 
 
+    fun setSwipeRefresh() {
+        fragBinding.swiperefresh.setOnRefreshListener {
+            fragBinding.swiperefresh.isRefreshing = true
+            showLoader(loader,"Downloading Recipes")
+            //Retrieve Donation List again here
 
+        }
+    }
+
+    fun checkSwipeRefresh() {
+        if (fragBinding.swiperefresh.isRefreshing)
+            fragBinding.swiperefresh.isRefreshing = false
+    }
 
     companion object {
         @JvmStatic
@@ -112,6 +140,8 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         super.onResume()
         recipeListViewModel.load()
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

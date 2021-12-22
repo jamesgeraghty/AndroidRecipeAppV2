@@ -17,6 +17,7 @@ class DetailViewModel : ViewModel() {
         get() = status
 
 
+
     fun getRecipe(id: Long) {
         recipe.value = RecipeManager.findById(id)
     }
