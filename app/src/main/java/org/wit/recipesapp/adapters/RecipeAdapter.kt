@@ -13,7 +13,7 @@ interface RecipeClickListener {
     fun onRecipeClick(recipe: RecipeModel)
 }
 
-class RecipeAdapter (private var recipes: List<RecipeModel>,
+class RecipeAdapter (private var recipes: ArrayList<RecipeModel>,
                      private val listener: RecipeClickListener)
 
     :RecyclerView.Adapter<RecipeAdapter.MainHolder>() {
@@ -29,7 +29,10 @@ class RecipeAdapter (private var recipes: List<RecipeModel>,
         val recipe = recipes[holder.adapterPosition]
         holder.bind(recipe, listener)
     }
-
+    fun removeAt(position: Int) {
+        recipes.removeAt(position)
+        notifyItemRemoved(position)
+    }
     override fun getItemCount(): Int = recipes.size
 
     class MainHolder( val binding: CardRecipeBinding) :
@@ -43,4 +46,6 @@ class RecipeAdapter (private var recipes: List<RecipeModel>,
             binding.executePendingBindings()
         }
     }
+
+
 }
