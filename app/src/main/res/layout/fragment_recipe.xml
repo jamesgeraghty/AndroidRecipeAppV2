@@ -18,7 +18,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/red"
+            android:background="@color/purple_500"
             android:fitsSystemWindows="true"
             app:elevation="0dip"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -143,8 +143,8 @@
 
             <Button
                 android:id="@+id/btnDelete"
-                android:layout_width="237dp"
-                android:layout_height="58dp"
+                android:layout_width="190dp"
+                android:layout_height="48dp"
                 android:layout_margin="16dp"
                 android:background="@color/colorAccent"
                 android:paddingTop="8dp"

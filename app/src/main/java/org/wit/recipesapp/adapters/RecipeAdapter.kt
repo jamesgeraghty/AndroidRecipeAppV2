@@ -41,7 +41,7 @@ class RecipeAdapter (private var recipes: ArrayList<RecipeModel>,
         fun bind(recipe: RecipeModel, listener: RecipeClickListener) {
             binding.root.tag = recipe
             binding.recipe = recipe
-            Picasso.get().load(recipe.image).resize(200,200).into(binding.imageIcon)
+           // Picasso.get().load(recipe.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onRecipeClick(recipe) }
             binding.executePendingBindings()
         }

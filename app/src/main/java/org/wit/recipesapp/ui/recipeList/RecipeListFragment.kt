@@ -47,7 +47,6 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // app = activity?.application as MainApp
         setHasOptionsMenu(true)
     }
 
@@ -55,10 +54,11 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        loader = createLoader(requireActivity())
+
         _fragBinding = FragmentRecipeListBinding.inflate(inflater, container, false)
-        val view = fragBinding.root
-     //   activity?.title = getString(R.string.action_recipeList)
+        val root = fragBinding.root
+        loader = createLoader(requireActivity())
+        activity?.title = getString(R.string.action_recipeList)
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
         recipeListViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
@@ -84,11 +84,11 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
             val action = RecipeListFragmentDirections.actionRecipeListFragmentToRecipeFragment(this.toString())
             findNavController().navigate(action)
         }
-        return view
+        return root
     }
-    private fun render(recipeList: ArrayList<RecipeModel>) {
-        fragBinding.recyclerView.adapter = RecipeAdapter(recipeList, this)
-        if (recipeList.isEmpty()) {
+    private fun render(recipesList: ArrayList<RecipeModel>) {
+        fragBinding.recyclerView.adapter = RecipeAdapter(recipesList, this)
+        if (recipesList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.recipesNotFound.visibility = View.VISIBLE
         } else {
@@ -110,7 +110,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
 
     override fun onRecipeClick(recipe: RecipeModel) {
-        val action = RecipeListFragmentDirections.actionRecipeListFragmentToDetailFragment(recipe.id)
+        val action = RecipeListFragmentDirections.actionRecipeListFragmentToDetailFragment(recipe.uid!!)
         findNavController().navigate(action)
     }
 
@@ -119,7 +119,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Recipes")
-            //Retrieve Donation List again here
+
 
         }
     }
@@ -138,10 +138,16 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     }
     override fun onResume() {
         super.onResume()
+        showLoader(loader,"Downloading Recipes")
+        loggedInViewModel.liveFirebaseUser.observe(viewLifecycleOwner, Observer { firebaseUser ->
+            if (firebaseUser != null) {
+                recipeListViewModel.liveFirebaseUser.value = firebaseUser
         recipeListViewModel.load()
     }
 
-
+        })
+        //hideLoader(loader)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

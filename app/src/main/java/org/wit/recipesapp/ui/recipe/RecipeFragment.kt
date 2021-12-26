@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -25,16 +26,14 @@ import org.wit.recipesapp.helpers.showImagePicker
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
 import org.wit.recipesapp.models.UserModel
+import org.wit.recipesapp.ui.auth.LoggedInViewModel
+import org.wit.recipesapp.ui.recipeList.RecipeListViewModel
 import timber.log.Timber
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class RecipeFragment : Fragment() {
 
-    lateinit var app: MainApp
+    //lateinit var app: MainApp
 
     private var _fragBinding: FragmentRecipeBinding? = null
     private val fragBinding get() = _fragBinding!!
@@ -44,13 +43,16 @@ class RecipeFragment : Fragment() {
     var user = UserModel()
     private lateinit var recipeViewModel: RecipeViewModel
 
+    private val recipeListViewModel: RecipeListViewModel by activityViewModels()
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+
 
     var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        app = activity?.application as MainApp
+      //  app = activity?.application as MainApp
 
         setHasOptionsMenu(true)
         navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment)
@@ -72,17 +74,27 @@ class RecipeFragment : Fragment() {
         })
 
         fragBinding.btnAdd.setOnClickListener() {
+            val title = fragBinding.recipeTitle.text.toString()
+            val description = fragBinding.description.text.toString()
             recipe.title = fragBinding.recipeTitle.text.toString()
             recipe.description = fragBinding.description.text.toString()
             if (recipe.title.isEmpty()) {
                 Snackbar.make(it, R.string.enter_recipe_title, Snackbar.LENGTH_LONG)
                     .show()
             } else {
+//                    recipeViewModel.addRecipe(recipe.copy())
+//                    Timber.i("add Button Pressed: $recipe.title")
+             //   recipeViewModel.addRecipe(loggedInViewModel.liveFirebaseUser,
+                  //  RecipeModel( email = loggedInViewModel.liveFirebaseUser.value?.email!!))
+                 //   recipe.copy())
 
-                    recipeViewModel.addRecipe(recipe.copy())
-                    Timber.i("add Button Pressed: $recipe.title")
 
-                navController.navigate(R.id.recipeListFragment)
+               // findNavController().navigate(R.id.recipeListFragment)
+                recipeViewModel.addRecipe(loggedInViewModel.liveFirebaseUser, RecipeModel(title = title,
+                    description = description,
+                    email = loggedInViewModel.liveFirebaseUser.value?.email!!))
+                Timber.i("add Button Pressed: $recipe.title")
+
             }
         }
         fragBinding.chooseImage.setOnClickListener {
@@ -149,10 +161,10 @@ class RecipeFragment : Fragment() {
                     AppCompatActivity.RESULT_OK -> {
                         if (result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
-                            recipe.image = result.data!!.data!!
+                          //  recipe.image = result.data!!.data!!
                             Picasso.get()
-                                .load(recipe.image)
-                                .into(fragBinding.recipeImage)
+                          //      .load(recipe.image)
+                           //     .into(fragBinding.recipeImage)
                             fragBinding.chooseImage.setText(R.string.change_recipe_image)
                         }
                     }
