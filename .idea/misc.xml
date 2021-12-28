@@ -39,7 +39,7 @@
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/content_home.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/fragment_about.xml" value="0.1984375" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/fragment_about2.xml" value="0.1984375" />
-        <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/fragment_detail.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/fragment_detail.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/fragment_recipe.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/fragment_recipe_detail.xml" value="0.3671875" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/fragment_recipe_details.xml" value="0.3671875" />
@@ -48,6 +48,7 @@
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/loading.xml" value="0.3671875" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/login.xml" value="0.3125" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/nav_header.xml" value="0.3515625" />
+        <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/layout/togglebutton_layout.xml" value="0.31927083333333334" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/menu/menu_main.xml" value="0.16354166666666667" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/menu/menu_recipe.xml" value="0.3125" />
         <entry key="..\:/Users/james/AndroidStudioProjects/RecipesAppV2 - Copy/app/src/main/res/menu/menu_recipe_list.xml" value="0.3671875" />

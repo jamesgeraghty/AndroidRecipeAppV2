@@ -11,8 +11,28 @@ object FirebaseDBManager : RecipeStore {
 
 
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
+
+    //functionused to view all the recipes available
     override fun findAll(recipesList: MutableLiveData<List<RecipeModel>>) {
-        TODO("Not yet implemented")
+        database.child("recipes")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                    Timber.i("Firebase Recipe error : ${error.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val localList = ArrayList<RecipeModel>()
+                    val children = snapshot.children
+                    children.forEach {
+                        val recipe = it.getValue(RecipeModel::class.java)
+                        localList.add(recipe!!)
+                    }
+                    database.child("recipes")
+                        .removeEventListener(this)
+
+                    recipesList.value = localList
+                }
+            })
     }
 
     override fun findAll(userid: String,recipesList: MutableLiveData<List<RecipeModel>>) {

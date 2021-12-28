@@ -19,6 +19,8 @@ class RecipeListViewModel : ViewModel() {
 
     var liveFirebaseUser = MutableLiveData<FirebaseUser>()
 
+    var readOnly = MutableLiveData(false)
+
     init {
         load()
         Timber.i("RecipeViewModel  has been created!")
@@ -27,12 +29,24 @@ class RecipeListViewModel : ViewModel() {
 
     fun load() {
         try {
+            readOnly.value = false
             FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,
                 recipesList)
             Timber.i("Report Load Success : ${recipesList.value.toString()}")
         }
         catch (e: Exception) {
             Timber.i("Report Load Error : $e.message")
+        }
+    }
+
+    fun loadAll() {
+        try {
+            readOnly.value = true
+            FirebaseDBManager.findAll(recipesList)
+            Timber.i("Report LoadAll Success : ${recipesList.value.toString()}")
+        }
+        catch (e: Exception) {
+            Timber.i("Report LoadAll Error : $e.message")
         }
     }
 

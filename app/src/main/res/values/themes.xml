@@ -23,14 +23,12 @@
 
     <style name="Theme.Recipe.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!-- START Firebase Resources-->
-    <!-- Activity with no Title -->
+
     <style name="ThemeOverlay.MyNoTitleActivity" parent="Theme.Recipe">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!-- Dark Buttons -->
     <style name="ThemeOverlay.MyDarkButton" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -39,7 +37,7 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <!-- Light EditTexts -->
+
     <style name="ThemeOverlay.MyLightEditText" parent="ThemeOverlay.AppCompat.Dark"/>
 
     <style name="ThemeOverlay.MyTextDetail" parent="Theme.Recipe">
@@ -62,5 +60,10 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">30sp</item>
     </style>
-    <!-- END Firebase Resources-->
+
+    <style name="toggleStyle">
+        <item name="colorControlActivated">@color/colorWhite</item>
+        <item name="colorControlHighlight">@color/black</item>
+    </style>
+
 </resources>

@@ -31,44 +31,43 @@ class DetailFragment : Fragment() {
                                   savedInstanceState: Bundle?
         ): View? {
             _fragBinding = FragmentDetailBinding.inflate(inflater, container, false)
-            val view = fragBinding.root
+            val root = fragBinding.root
 
             detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
             detailViewModel.observableRecipe.observe(viewLifecycleOwner, Observer { render() })
             detailViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
-                status?.let { renderStatus(status) }
+            //    status?.let { renderStatus(status) }
             })
 
             fragBinding.editRecipeButton.setOnClickListener {
 
                 detailViewModel.editRecipe(
                     loggedInViewModel.liveFirebaseUser.value?.uid!!,
-                    args.recipeid.toString(),
+                    args.recipeid,
                     fragBinding.recipevm?.observableRecipe!!.value!!
                 )
-                //Force Reload of list to guarantee refresh
-                recipeListViewModel.load()
+                            recipeListViewModel.load()
                 findNavController().navigateUp()
-            }
+                 }
 //
             fragBinding.deleteRecipeButton.setOnClickListener {
                 recipeListViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.uid!!,
                     detailViewModel.observableRecipe.value?.uid!!)
                 findNavController().navigateUp()
             }
-            return view
+            return root
         }
 
-    private fun renderStatus(status : Boolean) {
-        when (status) {
-            true -> {
-                view?.let {
-                    findNavController().popBackStack()
-                }
-            }
-            false -> {}
-        }
-    }
+//    private fun renderStatus(status : Boolean) {
+//        when (status) {
+//            true -> {
+//                view?.let {
+//                    findNavController().popBackStack()
+//                }
+//            }
+//            false -> {}
+//        }
+//    }
 
         private fun render() {
 
@@ -83,7 +82,7 @@ class DetailFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         with(detailViewModel) {
-            getRecipe(loggedInViewModel.liveFirebaseUser.value?.uid!!, args.recipeid.toString())
+            getRecipe(loggedInViewModel.liveFirebaseUser.value?.uid!!, args.recipeid)
         }
     }
 

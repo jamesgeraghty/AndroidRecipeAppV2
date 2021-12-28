@@ -16,22 +16,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/red"
-            android:fitsSystemWindows="true"
-            app:elevation="0dip"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarAdd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:titleTextColor="@color/colorPrimary" />
-        </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -44,7 +28,7 @@
                 android:layout_margin="8dp"
                 android:hint="@string/hint_recipeTitle"
                 android:inputType="text"
-                android:maxLength="25"
+                android:maxLength="100"
                 android:maxLines="1"
                 android:padding="8dp"
                 android:text="@={recipevm.observableRecipe.Title}"
@@ -63,7 +47,7 @@
                 android:layout_margin="8dp"
                 android:hint="@string/hint_recipeDescription"
                 android:inputType="text"
-                android:maxLength="25"
+                android:maxLength="55"
                 android:maxLines="1"
                 android:padding="8dp"
                 android:text="@={recipevm.observableRecipe.Description}"
@@ -79,52 +63,62 @@
 
             <Button
                 android:id="@+id/chooseImage"
-                android:layout_width="413dp"
-                android:layout_height="46dp"
+                android:layout_width="249dp"
+                android:layout_height="69dp"
                 android:layout_margin="16dp"
-                android:layout_marginBottom="76dp"
                 android:background="@color/colorAccent"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="@string/button_addImage"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/recipeImage"
-                app:layout_constraintEnd_toEndOf="parent"
 
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/recipeImage"
+                app:layout_constraintVertical_bias="0.304" />
 
             <ImageView
                 android:id="@+id/recipeImage"
-                android:layout_width="334dp"
-                android:layout_height="249dp"
-                android:layout_marginBottom="56dp"
+                android:layout_width="272dp"
+                android:layout_height="189dp"
+                android:layout_marginBottom="184dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.467"
+                app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@mipmap/ic_launcher" />
 
-
             <Button
                 android:id="@+id/editRecipeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="406dp"
+                android:layout_height="40dp"
+
+                android:layout_marginTop="24dp"
                 android:text="@string/save_recipe"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/deleteRecipeButton"
+                app:layout_constraintBottom_toTopOf="@+id/chooseImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deleteRecipeButton"
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/deleteRecipeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="408dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="44dp"
+
+
                 android:text="@string/deleteRecipe"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editRecipeButton" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editDescription"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>

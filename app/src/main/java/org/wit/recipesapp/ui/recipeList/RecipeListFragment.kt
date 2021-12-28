@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ie.wit.donationx.utils.SwipeToEditCallback
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.adapters.RecipeClickListener
@@ -69,15 +71,29 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
             checkSwipeRefresh()
         })
         setSwipeRefresh()
+
         val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                showLoader(loader,"Deleting Recipe")
                 val adapter = fragBinding.recyclerView.adapter as RecipeAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
-
+                recipeListViewModel.delete(recipeListViewModel.liveFirebaseUser.value?.uid!!,
+                    (viewHolder.itemView.tag as RecipeModel).uid!!)
+                hideLoader(loader)
             }
         }
         val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
         itemTouchDeleteHelper.attachToRecyclerView(fragBinding.recyclerView)
+
+        val swipeEditHandler = object : SwipeToEditCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                onRecipeClick(viewHolder.itemView.tag as RecipeModel)
+            }
+        }
+        val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
+        itemTouchEditHelper.attachToRecyclerView(fragBinding.recyclerView)
+
+
 
         val fab: FloatingActionButton = fragBinding.fab
         fab.setOnClickListener {
@@ -87,7 +103,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         return root
     }
     private fun render(recipesList: ArrayList<RecipeModel>) {
-        fragBinding.recyclerView.adapter = RecipeAdapter(recipesList, this)
+        fragBinding.recyclerView.adapter = RecipeAdapter(recipesList, this, recipeListViewModel.readOnly.value!!)
         if (recipesList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.recipesNotFound.visibility = View.VISIBLE
@@ -99,6 +115,16 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_recipe_list, menu)
+        val item = menu.findItem(R.id.toggleDonations) as MenuItem
+        item.setActionView(R.layout.togglebutton_layout)
+        val toggleDonations: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
+        toggleDonations.isChecked = false
+
+        toggleDonations.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) recipeListViewModel.loadAll()
+            else recipeListViewModel.load()
+        }
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -111,6 +137,8 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
     override fun onRecipeClick(recipe: RecipeModel) {
         val action = RecipeListFragmentDirections.actionRecipeListFragmentToDetailFragment(recipe.uid!!)
+
+        if(!recipeListViewModel.readOnly.value!!)
         findNavController().navigate(action)
     }
 
@@ -119,7 +147,10 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Recipes")
-
+            if(recipeListViewModel.readOnly.value!!)
+                recipeListViewModel.loadAll()
+            else
+                recipeListViewModel.load()
 
         }
     }

@@ -14,7 +14,7 @@ interface RecipeClickListener {
 }
 
 class RecipeAdapter (private var recipes: ArrayList<RecipeModel>,
-                     private val listener: RecipeClickListener)
+                     private val listener: RecipeClickListener, private val readOnly: Boolean)
 
     :RecyclerView.Adapter<RecipeAdapter.MainHolder>() {
 
@@ -22,7 +22,7 @@ class RecipeAdapter (private var recipes: ArrayList<RecipeModel>,
         val binding = CardRecipeBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return MainHolder(binding)
+        return MainHolder(binding,readOnly)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
@@ -35,8 +35,11 @@ class RecipeAdapter (private var recipes: ArrayList<RecipeModel>,
     }
     override fun getItemCount(): Int = recipes.size
 
-    class MainHolder( val binding: CardRecipeBinding) :
+    class MainHolder( val binding: CardRecipeBinding,private val readOnly : Boolean) :
         RecyclerView.ViewHolder(binding.root) {
+
+        val readOnlyRow = readOnly
+
 
         fun bind(recipe: RecipeModel, listener: RecipeClickListener) {
             binding.root.tag = recipe
