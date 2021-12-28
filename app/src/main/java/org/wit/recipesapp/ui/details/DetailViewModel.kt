@@ -19,10 +19,8 @@ class DetailViewModel : ViewModel() {
     val observableStatus: LiveData<Boolean>
         get() = status
 
-
     fun getRecipe(userid:String, id: String) {
         try {
-
             FirebaseDBManager.findById(userid, id, recipe)
             Timber.i("Detail getRecipe() Success : ${
                 recipe.value.toString()}")

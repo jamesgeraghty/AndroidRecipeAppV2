@@ -18,7 +18,7 @@
         android:elevation="24dp">
 
         <RelativeLayout
-            android:id="@+id/cardDRecipe"
+            android:id="@+id/cardRecipe"
             android:layout_width="match_parent"
             android:layout_height="153dp"
             android:padding="16dp">
@@ -43,7 +43,6 @@
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@+id/imageIcon"
                 android:text="@{recipe.title}"
-
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.048"
@@ -64,6 +63,20 @@
                 android:layout_toEndOf="@+id/recipeTitle"
                 android:text="@{recipe.description}"
                 tools:text="A Description" />
+
+            <TextView
+                android:layout_width="107dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/recipeTitle"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="-382dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="291dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@+id/recipeTitle"
+
+                tools:text="Meals" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>

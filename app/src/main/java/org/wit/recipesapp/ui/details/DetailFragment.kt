@@ -49,7 +49,7 @@ class DetailFragment : Fragment() {
                             recipeListViewModel.load()
                 findNavController().navigateUp()
                  }
-//
+
             fragBinding.deleteRecipeButton.setOnClickListener {
                 recipeListViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.uid!!,
                     detailViewModel.observableRecipe.value?.uid!!)
@@ -57,7 +57,7 @@ class DetailFragment : Fragment() {
             }
             return root
         }
-
+//
 //    private fun renderStatus(status : Boolean) {
 //        when (status) {
 //            true -> {
@@ -70,14 +70,9 @@ class DetailFragment : Fragment() {
 //    }
 
         private fun render() {
-
             fragBinding.recipevm = detailViewModel
         }
 
-//    override fun onResume() {
-//        super.onResume()
-//        detailViewModel.getRecipe(args.recipeid)
-//    }
 
     override fun onResume() {
         super.onResume()

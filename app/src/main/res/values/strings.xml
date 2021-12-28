@@ -78,7 +78,12 @@
     <string name="emailpassword_title_text">Please Login Below</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
-    deleteRecipe
+
+    <string-array name="meals">
+        <item>Breakast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
     <string name="deleteRecipe">Delete Recipe</string>e
 
 </resources>

@@ -3,6 +3,7 @@ package org.wit.recipesapp.ui.recipe
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
@@ -23,7 +23,6 @@ import org.wit.recipesapp.R
 //import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.recipesapp.databinding.FragmentRecipeBinding
 import org.wit.recipesapp.helpers.showImagePicker
-import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
 import org.wit.recipesapp.models.UserModel
 import org.wit.recipesapp.ui.auth.LoggedInViewModel
@@ -63,6 +62,8 @@ class RecipeFragment : Fragment() {
                               savedInstanceState: Bundle?
     ): View? {
         _fragBinding = FragmentRecipeBinding.inflate(inflater, container, false)
+        val meals = resources.getStringArray(R.array.meals)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item,meals)
         val root = fragBinding.root
         activity?.title = getString(R.string.action_recipe)
 
@@ -74,6 +75,11 @@ class RecipeFragment : Fragment() {
         })
 
         fragBinding.btnAdd.setOnClickListener() {
+            val meals = resources.getStringArray(R.array.meals)
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item,meals)
+            fragBinding.autoCompleteTextView.setAdapter(arrayAdapter)
+
+
             val title = fragBinding.recipeTitle.text.toString()
             val description = fragBinding.description.text.toString()
             recipe.title = fragBinding.recipeTitle.text.toString()
@@ -82,14 +88,7 @@ class RecipeFragment : Fragment() {
                 Snackbar.make(it, R.string.enter_recipe_title, Snackbar.LENGTH_LONG)
                     .show()
             } else {
-//                    recipeViewModel.addRecipe(recipe.copy())
-//                    Timber.i("add Button Pressed: $recipe.title")
-             //   recipeViewModel.addRecipe(loggedInViewModel.liveFirebaseUser,
-                  //  RecipeModel( email = loggedInViewModel.liveFirebaseUser.value?.email!!))
-                 //   recipe.copy())
 
-
-               // findNavController().navigate(R.id.recipeListFragment)
                 recipeViewModel.addRecipe(loggedInViewModel.liveFirebaseUser, RecipeModel(title = title,
                     description = description,
                     email = loggedInViewModel.liveFirebaseUser.value?.email!!))

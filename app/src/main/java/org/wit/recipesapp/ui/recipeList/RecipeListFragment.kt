@@ -117,10 +117,10 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         inflater.inflate(R.menu.menu_recipe_list, menu)
         val item = menu.findItem(R.id.toggleDonations) as MenuItem
         item.setActionView(R.layout.togglebutton_layout)
-        val toggleDonations: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
-        toggleDonations.isChecked = false
+        val toggleRecipes: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
+        toggleRecipes.isChecked = false
 
-        toggleDonations.setOnCheckedChangeListener { buttonView, isChecked ->
+        toggleRecipes.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) recipeListViewModel.loadAll()
             else recipeListViewModel.load()
         }
