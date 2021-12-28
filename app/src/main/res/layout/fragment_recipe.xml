@@ -14,22 +14,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/red"
-            android:fitsSystemWindows="true"
-            app:elevation="0dip"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarAdd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:titleTextColor="@color/colorPrimary" />
-        </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -37,9 +21,12 @@
 
             <EditText
                 android:id="@+id/recipeTitle"
-                android:layout_width="413dp"
-                android:layout_height="43dp"
+                android:layout_width="365dp"
+                android:layout_height="44dp"
                 android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:hint="@string/hint_recipeTitle"
                 android:inputType="text"
                 android:maxLength="25"
@@ -49,15 +36,45 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/description"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.433"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                app:layout_constraintVertical_bias="0.775" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.896" />
+                tools:ignore="MissingConstraints">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="165dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Meals"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <EditText
                 android:id="@+id/description"
-                android:layout_width="409dp"
-                android:layout_height="43dp"
+                android:layout_width="365dp"
+                android:layout_height="46dp"
                 android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:hint="@string/hint_recipeDescription"
                 android:inputType="text"
                 android:maxLength="25"
@@ -65,69 +82,75 @@
                 android:padding="8dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/recipeImage"
+                app:layout_constraintBottom_toTopOf="@+id/btnAdd"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.552"
+                app:layout_constraintHorizontal_bias="0.433"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.412" />
-
+                app:layout_constraintVertical_bias="0.862" />
 
             <Button
                 android:id="@+id/chooseImage"
-                android:layout_width="374dp"
+                android:layout_width="365dp"
                 android:layout_height="46dp"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@color/colorAccent"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="@string/button_addImage"
                 android:textColor="@color/colorPrimary"
+
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/recipeImage"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.633"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recipeLocation"
-                app:layout_constraintVertical_bias="0.811" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.949" />
 
             <ImageView
                 android:id="@+id/recipeImage"
                 android:layout_width="334dp"
                 android:layout_height="249dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.493"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@mipmap/ic_launcher" />
 
-            <Button
-                android:id="@+id/recipeLocation"
-                android:layout_width="173dp"
-                android:layout_height="46dp"
-                android:layout_marginBottom="72dp"
-                android:background="@color/red"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:rotationX="4"
-                android:stateListAnimator="@null"
-                android:text="@string/button_location"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/recipeImage"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.911"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description"
-                app:layout_constraintVertical_bias="0.887" />
+            <!--            <Button-->
+            <!--                android:id="@+id/recipeLocation"-->
+            <!--                android:layout_width="173dp"-->
+            <!--                android:layout_height="46dp"-->
+            <!--                android:layout_marginBottom="72dp"-->
+            <!--                android:background="@color/red"-->
+            <!--                android:paddingTop="8dp"-->
+            <!--                android:paddingBottom="8dp"-->
+            <!--                android:rotationX="4"-->
+            <!--                android:stateListAnimator="@null"-->
+            <!--                android:text="@string/button_location"-->
+            <!--                android:textColor="@color/colorPrimary"-->
+            <!--                android:textSize="16sp"-->
+            <!--                app:layout_constraintBottom_toTopOf="@+id/recipeImage"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintHorizontal_bias="0.911"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/description"-->
+            <!--                app:layout_constraintVertical_bias="0.887" />-->
 
             <Button
                 android:id="@+id/btnAdd"
-                android:layout_width="190dp"
+                android:layout_width="364dp"
                 android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="@color/red"
                 android:paddingTop="8dp"
+
                 android:paddingBottom="8dp"
                 android:stateListAnimator="@null"
                 android:text="@string/button_addRecipe"
@@ -135,16 +158,15 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/chooseImage"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/recipeLocation"
-                app:layout_constraintHorizontal_bias="0.536"
+                app:layout_constraintHorizontal_bias="0.612"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description"
-                app:layout_constraintVertical_bias="0.784" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.906" />
 
             <Button
                 android:id="@+id/btnDelete"
-                android:layout_width="237dp"
-                android:layout_height="58dp"
+                android:layout_width="190dp"
+                android:layout_height="48dp"
                 android:layout_margin="16dp"
                 android:background="@color/colorAccent"
                 android:paddingTop="8dp"

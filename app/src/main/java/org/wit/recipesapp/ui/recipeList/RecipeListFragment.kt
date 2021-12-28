@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ie.wit.donationx.utils.SwipeToEditCallback
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.adapters.RecipeClickListener
@@ -47,7 +49,6 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // app = activity?.application as MainApp
         setHasOptionsMenu(true)
     }
 
@@ -55,10 +56,11 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        loader = createLoader(requireActivity())
+
         _fragBinding = FragmentRecipeListBinding.inflate(inflater, container, false)
-        val view = fragBinding.root
-     //   activity?.title = getString(R.string.action_recipeList)
+        val root = fragBinding.root
+        loader = createLoader(requireActivity())
+        activity?.title = getString(R.string.action_recipeList)
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
         recipeListViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
@@ -69,26 +71,40 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
             checkSwipeRefresh()
         })
         setSwipeRefresh()
+
         val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                showLoader(loader,"Deleting Recipe")
                 val adapter = fragBinding.recyclerView.adapter as RecipeAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
-
+                recipeListViewModel.delete(recipeListViewModel.liveFirebaseUser.value?.uid!!,
+                    (viewHolder.itemView.tag as RecipeModel).uid!!)
+                hideLoader(loader)
             }
         }
         val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
         itemTouchDeleteHelper.attachToRecyclerView(fragBinding.recyclerView)
+
+        val swipeEditHandler = object : SwipeToEditCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                onRecipeClick(viewHolder.itemView.tag as RecipeModel)
+            }
+        }
+        val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
+        itemTouchEditHelper.attachToRecyclerView(fragBinding.recyclerView)
+
+
 
         val fab: FloatingActionButton = fragBinding.fab
         fab.setOnClickListener {
             val action = RecipeListFragmentDirections.actionRecipeListFragmentToRecipeFragment(this.toString())
             findNavController().navigate(action)
         }
-        return view
+        return root
     }
-    private fun render(recipeList: ArrayList<RecipeModel>) {
-        fragBinding.recyclerView.adapter = RecipeAdapter(recipeList, this)
-        if (recipeList.isEmpty()) {
+    private fun render(recipesList: ArrayList<RecipeModel>) {
+        fragBinding.recyclerView.adapter = RecipeAdapter(recipesList, this, recipeListViewModel.readOnly.value!!)
+        if (recipesList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.recipesNotFound.visibility = View.VISIBLE
         } else {
@@ -99,6 +115,16 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_recipe_list, menu)
+        val item = menu.findItem(R.id.toggleDonations) as MenuItem
+        item.setActionView(R.layout.togglebutton_layout)
+        val toggleRecipes: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
+        toggleRecipes.isChecked = false
+
+        toggleRecipes.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) recipeListViewModel.loadAll()
+            else recipeListViewModel.load()
+        }
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -110,7 +136,9 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
 
     override fun onRecipeClick(recipe: RecipeModel) {
-        val action = RecipeListFragmentDirections.actionRecipeListFragmentToDetailFragment(recipe.id)
+        val action = RecipeListFragmentDirections.actionRecipeListFragmentToDetailFragment(recipe.uid!!)
+
+        if(!recipeListViewModel.readOnly.value!!)
         findNavController().navigate(action)
     }
 
@@ -119,7 +147,10 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader,"Downloading Recipes")
-            //Retrieve Donation List again here
+            if(recipeListViewModel.readOnly.value!!)
+                recipeListViewModel.loadAll()
+            else
+                recipeListViewModel.load()
 
         }
     }
@@ -138,10 +169,16 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     }
     override fun onResume() {
         super.onResume()
+        showLoader(loader,"Downloading Recipes")
+        loggedInViewModel.liveFirebaseUser.observe(viewLifecycleOwner, Observer { firebaseUser ->
+            if (firebaseUser != null) {
+                recipeListViewModel.liveFirebaseUser.value = firebaseUser
         recipeListViewModel.load()
     }
 
-
+        })
+        //hideLoader(loader)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

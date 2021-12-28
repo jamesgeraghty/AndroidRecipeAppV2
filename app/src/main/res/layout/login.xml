@@ -3,7 +3,7 @@
     android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/ic_icon_background"
     android:orientation="vertical"
     android:weightSum="4">
 
@@ -17,10 +17,10 @@
         <ImageView
             android:id="@+id/icon"
             style="@style/ThemeOverlay.FirebaseIcon"
-            android:layout_width="286dp"
-            android:layout_height="325dp"
+            android:layout_width="199dp"
+            android:layout_height="210dp"
             android:contentDescription="@string/desc_firebase_lockup"
-            />
+            android:src="@drawable/ic_baseline_food_bank_24" />
 
         <TextView
             android:id="@+id/titleText"
@@ -103,6 +103,21 @@
                 android:layout_weight="1"
                 android:text="@string/create_account"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emailPasswordButtons"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/googleSignInButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
