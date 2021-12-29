@@ -1,6 +1,6 @@
 # Android Recipe Version2  App by James Geraghty
 
-Mobile Application Development (Higher Diploma in Computer Science)
+Mobile Application Development (Higher Diploma in Computer Science) completed From November to December 2021.
 
 A recipe Mobile Phone application created in Android Studio. The user can create an account and add and delete recipes. The Google Map API allows the user to add locations. The recipe and user data is stored the Firebase database. This application is a update to the Recipes App Version 1 with a list of key features implemented below.
 
