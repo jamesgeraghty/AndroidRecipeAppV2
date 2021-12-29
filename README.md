@@ -1,20 +1,20 @@
-# Android Recipe App by James Geraghty
+# Android Recipe Version2  App by James Geraghty
 
 Mobile Application Development (Higher Diploma in Computer Science)
 
-A recipe Mobile Phone application created in Android Studio. The user can create an account and add and delete recipes. The Google Map API allows the user to add locations. The recipe and user data is stored locally on the android device in JSON.
+A recipe Mobile Phone application created in Android Studio. The user can create an account and add and delete recipes. The Google Map API allows the user to add locations. The recipe and user data is stored the Firebase database. This application is a update to the Recipes App Version 1 with a list of key features implemented below.
 
 
 ## Features
 
 - Create, read,update and delete 
 - Upload images
-- Location functionality using Google Maps API
+- Navigation Component
+- Model,view, ViewModel Structure
 - Recipes are store locally in JSON 
 - Adherence to Android Best Pratices
-- Google maps 
-- Splash screen 
-- User register/login
+- Goole Auth register/login
+- Firebase 
 
 
   
