@@ -20,7 +20,7 @@ A recipe Mobile Phone application created in Android Studio. The user can create
   
 ## Screenshots
 
-![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeApp/blob/master/androidversion2.png)
+![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeAppV2/blob/master/androidversion2.png)
 
 
 ![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeApp/blob/master/splashscreen.png)
