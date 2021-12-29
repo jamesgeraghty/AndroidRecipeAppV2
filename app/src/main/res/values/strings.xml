@@ -84,6 +84,7 @@
         <item>Lunch</item>
         <item>Dinner</item>
     </string-array>
-    <string name="deleteRecipe">Delete Recipe</string>e
+    <string name="deleteRecipe">Delete Recipe</string>
+    <string name="select_profile_image">Select Profile Image</string>
 
 </resources>

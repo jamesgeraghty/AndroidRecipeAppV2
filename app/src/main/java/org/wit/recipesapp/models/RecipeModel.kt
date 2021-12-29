@@ -2,8 +2,10 @@ package org.wit.recipesapp.models
 
 import android.os.Parcelable
 import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.parcelize.Parcelize
 
+@IgnoreExtraProperties
 @Parcelize
 data class RecipeModel(
     var uid: String? = "n/a",
@@ -14,7 +16,7 @@ data class RecipeModel(
     var lat: Double = 0.0,
     var lng: Double = 0.0,
     var zoom: Float = 0f,
-    val email: String? = "joe@bloggs.com") : Parcelable
+    var email: String? = "joe@bloggs.com") : Parcelable
 
 {
     @Exclude

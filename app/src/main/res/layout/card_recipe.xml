@@ -65,15 +65,15 @@
                 tools:text="A Description" />
 
             <TextView
-                android:layout_width="107dp"
-                android:layout_height="60dp"
+                android:layout_width="115dp"
+                android:layout_height="49dp"
                 android:layout_below="@+id/recipeTitle"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="-382dp"
                 android:layout_marginTop="22dp"
-                android:layout_marginEnd="291dp"
-                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="283dp"
+                android:layout_marginBottom="11dp"
                 android:layout_toEndOf="@+id/recipeTitle"
 
                 tools:text="Meals" />

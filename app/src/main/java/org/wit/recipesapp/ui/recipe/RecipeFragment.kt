@@ -65,6 +65,7 @@ class RecipeFragment : Fragment() {
         val meals = resources.getStringArray(R.array.meals)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item,meals)
         val root = fragBinding.root
+
         activity?.title = getString(R.string.action_recipe)
 
         recipeViewModel =

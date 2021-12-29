@@ -36,7 +36,7 @@ object FirebaseDBManager : RecipeStore {
     }
 
     override fun findAll(userid: String,recipesList: MutableLiveData<List<RecipeModel>>) {
-        database.child("recipes")
+        database.child("user-recipes")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
                     Timber.i("Firebase Recipe error : ${error.message}")
@@ -49,9 +49,10 @@ object FirebaseDBManager : RecipeStore {
                         val recipe = it.getValue(RecipeModel::class.java)
                         localList.add(recipe!!)
                     }
-                    database.child("recipes")
+                    database.child("user-recipes")
                         .removeEventListener(this)
 
+// updated with the lcallist retreieved from the database
                     recipesList.value = localList
                 }
             })
@@ -105,5 +106,24 @@ object FirebaseDBManager : RecipeStore {
 
         database.updateChildren(childUpdate)
     }
+    fun updateImageRef(userid: String,imageUri: String) {
 
+        val userRecipes = database.child("user-donations").child(userid)
+        val allRecipes = database.child("donations")
+
+        userRecipes.addListenerForSingleValueEvent(
+            object : ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {}
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach {
+                        //Update Users imageUri
+                        it.ref.child("profilepic").setValue(imageUri)
+                        //Update all donations that match 'it'
+                        val recipe = it.getValue(RecipeModel::class.java)
+                        allRecipes.child(recipe!!.uid!!)
+                            .child("profilepic").setValue(imageUri)
+                    }
+                }
+            })
+    }
 }

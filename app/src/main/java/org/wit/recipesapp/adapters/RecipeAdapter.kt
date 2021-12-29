@@ -4,8 +4,9 @@ package org.wit.recipesapp.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
-
+import androidx.core.net.toUri
 import org.wit.recipesapp.databinding.CardRecipeBinding
 import org.wit.recipesapp.models.RecipeModel
 
@@ -14,7 +15,8 @@ interface RecipeClickListener {
 }
 
 class RecipeAdapter (private var recipes: ArrayList<RecipeModel>,
-                     private val listener: RecipeClickListener, private val readOnly: Boolean)
+                     private val listener: RecipeClickListener,
+                     private val readOnly: Boolean)
 
     :RecyclerView.Adapter<RecipeAdapter.MainHolder>() {
 
@@ -44,7 +46,13 @@ class RecipeAdapter (private var recipes: ArrayList<RecipeModel>,
         fun bind(recipe: RecipeModel, listener: RecipeClickListener) {
             binding.root.tag = recipe
             binding.recipe = recipe
-           // Picasso.get().load(recipe.image).resize(200,200).into(binding.imageIcon)
+
+//            Picasso.get().load(recipe.profilepic.toUri())
+//                .resize(200, 200)
+//                .transform(customTransformation())
+//                .centerCrop()
+//                .memoryPolicy(MemoryPolicy.NO_CACHE)
+//                .into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onRecipeClick(recipe) }
             binding.executePendingBindings()
         }

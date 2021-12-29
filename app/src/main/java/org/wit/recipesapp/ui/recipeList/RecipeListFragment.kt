@@ -20,7 +20,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import ie.wit.donationx.utils.SwipeToEditCallback
+import org.wit.recipesapp.utils.SwipeToEditCallback
+
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.adapters.RecipeClickListener
@@ -60,9 +61,11 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         _fragBinding = FragmentRecipeListBinding.inflate(inflater, container, false)
         val root = fragBinding.root
         loader = createLoader(requireActivity())
-        activity?.title = getString(R.string.action_recipeList)
+       // activity?.title = getString(R.string.action_recipeList)
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
+
+
         recipeListViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
         recipeListViewModel.observableRecipesList.observe(viewLifecycleOwner, Observer {
                recipes ->
@@ -74,11 +77,12 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
         val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                showLoader(loader,"Deleting Recipe")
+                showLoader(loader, "Deleting Recipe")
                 val adapter = fragBinding.recyclerView.adapter as RecipeAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
                 recipeListViewModel.delete(recipeListViewModel.liveFirebaseUser.value?.uid!!,
                     (viewHolder.itemView.tag as RecipeModel).uid!!)
+
                 hideLoader(loader)
             }
         }
@@ -115,7 +119,8 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_recipe_list, menu)
-        val item = menu.findItem(R.id.toggleDonations) as MenuItem
+
+        val item = menu.findItem(R.id.toggleRecipes) as MenuItem
         item.setActionView(R.layout.togglebutton_layout)
         val toggleRecipes: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
         toggleRecipes.isChecked = false
