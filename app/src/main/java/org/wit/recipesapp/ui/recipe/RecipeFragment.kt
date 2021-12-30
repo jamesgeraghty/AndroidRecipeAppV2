@@ -26,6 +26,7 @@ import org.wit.recipesapp.ui.recipeList.RecipeListViewModel
 import timber.log.Timber
 
 
+
 class RecipeFragment : Fragment() {
 
     //lateinit var app: MainApp
@@ -58,6 +59,7 @@ class RecipeFragment : Fragment() {
         _fragBinding = FragmentRecipeBinding.inflate(inflater, container, false)
         val meals = resources.getStringArray(R.array.meals)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, meals)
+        fragBinding.autoCompleteTextView.setAdapter(arrayAdapter)
         val root = fragBinding.root
 
         activity?.title = getString(R.string.action_recipe)
@@ -81,21 +83,19 @@ class RecipeFragment : Fragment() {
   //  fragBinding.btnAdd.setOnClickListener() {
   fun setButtonListener(layout: FragmentRecipeBinding) {
       layout.btnAdd.setOnClickListener {
-      val meals = resources.getStringArray(R.array.meals)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item,meals)
-        fragBinding.autoCompleteTextView.setAdapter(arrayAdapter)
-
-        val title = fragBinding.recipeTitle.text.toString()
+              val title = fragBinding.recipeTitle.text.toString()
         val description = fragBinding.description.text.toString()
+          val meals = resources.getStringArray(R.array.meals)
         recipe.title = fragBinding.recipeTitle.text.toString()
         recipe.description = fragBinding.description.text.toString()
+          recipe.meals = fragBinding.autoCompleteTextView.text.toString()
         if (recipe.title.isEmpty()) {
             Snackbar.make(it, R.string.enter_recipe_title, Snackbar.LENGTH_LONG)
                 .show()
         } else {
 
             recipeViewModel.addRecipe(loggedInViewModel.liveFirebaseUser, RecipeModel(title = title,
-                description = description,
+                description = description, meals = meals.toString(),
                 email = loggedInViewModel.liveFirebaseUser.value?.email!!))
             Timber.i("add Button Pressed: $recipe.title")
 

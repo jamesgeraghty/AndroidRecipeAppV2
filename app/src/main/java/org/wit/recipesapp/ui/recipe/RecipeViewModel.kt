@@ -30,16 +30,5 @@ class RecipeViewModel : ViewModel() {
         }
     }
 
-//    fun getRecipe(id: String) {
-//        try {
-//
-//            FirebaseDBManager.findById(id, recipe)
-//            Timber.i("Detail getRecipe() Success : ${
-//                recipe.value.toString()}")
-//        }
-//        catch (e: Exception) {
-//            Timber.i("Detail getRecipe() Error : $e.message")
-//        }
-//    }
 
 }
