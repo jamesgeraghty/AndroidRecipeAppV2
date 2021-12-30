@@ -36,12 +36,10 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="org.wit.recipesapp.fragments.AboutFragment"
-        android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="org.wit.recipesapp.ui.details.DetailFragment"
-
         tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/action_detailFragment_to_recipeListFragment"

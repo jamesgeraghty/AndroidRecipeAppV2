@@ -1,18 +1,13 @@
 package org.wit.recipesapp.ui.recipeList
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -20,7 +15,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import ie.wit.donationx.utils.SwipeToEditCallback
+import org.wit.recipesapp.utils.SwipeToEditCallback
+
 import org.wit.recipesapp.R
 import org.wit.recipesapp.adapters.RecipeAdapter
 import org.wit.recipesapp.adapters.RecipeClickListener
@@ -30,7 +26,6 @@ import org.wit.recipesapp.helpers.createLoader
 import org.wit.recipesapp.helpers.showLoader
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
-import org.wit.recipesapp.models.UserModel
 import org.wit.recipesapp.ui.auth.LoggedInViewModel
 import org.wit.recipesapp.utils.SwipeToDeleteCallback
 import org.wit.recipesapp.utils.hideLoader
@@ -58,11 +53,14 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     ): View? {
 
         _fragBinding = FragmentRecipeListBinding.inflate(inflater, container, false)
-        val root = fragBinding.root
+        //val view = fragBinding.root
         loader = createLoader(requireActivity())
-        activity?.title = getString(R.string.action_recipeList)
+        val view = fragBinding.root
+       // activity?.title = getString(R.string.action_recipeList)
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
+
+
         recipeListViewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java)
         recipeListViewModel.observableRecipesList.observe(viewLifecycleOwner, Observer {
                recipes ->
@@ -74,11 +72,12 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
         val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                showLoader(loader,"Deleting Recipe")
+                showLoader(loader, "Deleting Recipe")
                 val adapter = fragBinding.recyclerView.adapter as RecipeAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
                 recipeListViewModel.delete(recipeListViewModel.liveFirebaseUser.value?.uid!!,
                     (viewHolder.itemView.tag as RecipeModel).uid!!)
+
                 hideLoader(loader)
             }
         }
@@ -100,7 +99,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
             val action = RecipeListFragmentDirections.actionRecipeListFragmentToRecipeFragment(this.toString())
             findNavController().navigate(action)
         }
-        return root
+        return view
     }
     private fun render(recipesList: ArrayList<RecipeModel>) {
         fragBinding.recyclerView.adapter = RecipeAdapter(recipesList, this, recipeListViewModel.readOnly.value!!)
@@ -115,7 +114,8 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_recipe_list, menu)
-        val item = menu.findItem(R.id.toggleDonations) as MenuItem
+
+        val item = menu.findItem(R.id.toggleRecipes) as MenuItem
         item.setActionView(R.layout.togglebutton_layout)
         val toggleRecipes: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
         toggleRecipes.isChecked = false
@@ -167,6 +167,12 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
                 arguments = Bundle().apply { }
             }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _fragBinding = null
+    }
+
     override fun onResume() {
         super.onResume()
         showLoader(loader,"Downloading Recipes")
@@ -180,10 +186,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         //hideLoader(loader)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _fragBinding = null
-    }
+
 
 //    private fun loadRecipes() {
 //        showRecipes(app.recipes.findAll())

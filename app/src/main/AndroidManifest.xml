@@ -33,18 +33,10 @@
             android:theme="@style/Theme.Recipe">
         </activity>
 
-        <activity
-            android:name=".activities.RecipesMapsActivity"
-            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCc39nbEeS_9z_4me5CaR_JVl4pEkqT4Zk" />
-
-        <activity
-            android:name=".activities.MapActivity"
-            android:exported="true"
-            android:label="@string/title_activity_map" />
 
     </application>
 

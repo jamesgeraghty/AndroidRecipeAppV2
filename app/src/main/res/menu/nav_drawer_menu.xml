@@ -6,6 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/recipeFragment"
+            android:icon="@drawable/ic_baseline_add_to_photos_24"
             android:title="@string/action_recipe" />
         <item
             android:id="@+id/recipeListFragment"

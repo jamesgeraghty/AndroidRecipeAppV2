@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import org.wit.recipesapp.firebase.FirebaseDBManager
+import org.wit.recipesapp.firebase.FirebaseImageManager
 
 import org.wit.recipesapp.models.RecipeModel
 import timber.log.Timber
@@ -13,7 +14,7 @@ import timber.log.Timber
 class RecipeViewModel : ViewModel() {
 
     private val status = MutableLiveData<Boolean>()
-    private val recipe = MutableLiveData<RecipeModel>()
+
     val observableStatus: LiveData<Boolean>
         get() = status
 
@@ -21,7 +22,7 @@ class RecipeViewModel : ViewModel() {
     fun addRecipe(firebaseUser: MutableLiveData<FirebaseUser>,
                     recipe: RecipeModel) {
         status.value = try {
-
+            recipe.profilepic = FirebaseImageManager.imageUri.value.toString()
             FirebaseDBManager.create(firebaseUser,recipe)
             true
         } catch (e: IllegalArgumentException) {

@@ -35,9 +35,9 @@ class DetailFragment : Fragment() {
 
             detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
             detailViewModel.observableRecipe.observe(viewLifecycleOwner, Observer { render() })
-            detailViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
+         //   detailViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
             //    status?.let { renderStatus(status) }
-            })
+           // })
 
             fragBinding.editRecipeButton.setOnClickListener {
 
@@ -76,10 +76,9 @@ class DetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        with(detailViewModel) {
-            getRecipe(loggedInViewModel.liveFirebaseUser.value?.uid!!, args.recipeid)
+  detailViewModel.getRecipe(loggedInViewModel.liveFirebaseUser.value?.uid!!, args.recipeid)
         }
-    }
+
 
         override fun onDestroyView() {
             super.onDestroyView()

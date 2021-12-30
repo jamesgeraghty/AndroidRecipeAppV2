@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-     <data>
+    <data>
         <variable
-        name="recipe"
-        type="org.wit.recipesapp.models.RecipeModel"/>
-     </data>
+            name="recipe"
+            type="org.wit.recipesapp.models.RecipeModel"/>
+    </data>
 
 
     <androidx.cardview.widget.CardView
@@ -23,25 +23,15 @@
             android:layout_height="153dp"
             android:padding="16dp">
 
-            <ImageView
-                android:id="@+id/imageIcon"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/change_recipe_image"
-
-                app:srcCompat="@mipmap/ic_launcher_round" />
 
             <TextView
                 android:id="@+id/recipeTitle"
-                android:layout_width="279dp"
+                android:layout_width="179dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_toEndOf="@+id/imageIcon"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="19dp"
                 android:text="@{recipe.title}"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,32 +41,46 @@
                 tools:text="A Title" />
 
             <TextView
-                android:layout_width="272dp"
-                android:layout_height="66dp"
+                android:id="@+id/description"
+                android:layout_width="287dp"
+                android:layout_height="41dp"
                 android:layout_below="@+id/recipeTitle"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="-276dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginStart="-210dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="78dp"
+                android:layout_marginBottom="0dp"
                 android:layout_toEndOf="@+id/recipeTitle"
                 android:text="@{recipe.description}"
+                android:textColor="@color/grey_100"
                 tools:text="A Description" />
 
             <TextView
-                android:layout_width="107dp"
-                android:layout_height="60dp"
+                android:layout_width="112dp"
+                android:layout_height="40dp"
                 android:layout_below="@+id/recipeTitle"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="-382dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginEnd="291dp"
-                android:layout_marginBottom="0dp"
+                android:layout_marginStart="-215dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="31dp"
                 android:layout_toEndOf="@+id/recipeTitle"
 
                 tools:text="Meals" />
+
+            <ImageView
+                android:id="@+id/imageIcon"
+                android:layout_width="140dp"
+                android:layout_height="69dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="50dp"
+                android:layout_toEndOf="@+id/recipeTitle"
+                app:srcCompat="@mipmap/ic_launcher" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>
