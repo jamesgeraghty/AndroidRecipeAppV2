@@ -14,15 +14,12 @@ import com.google.firebase.auth.FirebaseUser
 //}
 
 interface RecipeStore {
-    fun findAll(recipesList:
-                MutableLiveData<List<RecipeModel>>
+    fun findAll(recipesList:MutableLiveData<List<RecipeModel>>
     )
     fun findAll(userid:String,
-                recipesList:
-                MutableLiveData<List<RecipeModel>>
+                recipesList:MutableLiveData<List<RecipeModel>>
     )
-    fun findById(userid:String, recipeid: String,
-                 recipe: MutableLiveData<RecipeModel>
+    fun findById(userid:String, recipeid: String, recipe: MutableLiveData<RecipeModel>
     )
     fun create(firebaseUser: MutableLiveData<FirebaseUser>, recipe: RecipeModel)
     fun delete(userid:String, recipeid: String)

@@ -108,8 +108,8 @@ object FirebaseDBManager : RecipeStore {
     }
     fun updateImageRef(userid: String,imageUri: String) {
 
-        val userRecipes = database.child("user-donations").child(userid)
-        val allRecipes = database.child("donations")
+        val userRecipes = database.child("user-recipes").child(userid)
+        val allRecipes = database.child("recipes")
 
         userRecipes.addListenerForSingleValueEvent(
             object : ValueEventListener {

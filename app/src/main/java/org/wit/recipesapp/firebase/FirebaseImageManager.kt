@@ -28,7 +28,7 @@ object FirebaseImageManager {
 
     fun checkStorageForExistingProfilePic(userid: String) {
         val imageRef = storage.child("photos").child("${userid}.jpg")
-        val defaultImageRef = storage.child("homer.jpg")
+        val defaultImageRef = storage.child("profileimage.jpg")
 
         imageRef.metadata.addOnSuccessListener { //File Exists
             imageRef.downloadUrl.addOnCompleteListener { task ->
@@ -41,10 +41,9 @@ object FirebaseImageManager {
     }
 
     fun uploadImageToFirebase(userid: String, bitmap: Bitmap, updating : Boolean) {
-        // Get the data from an ImageView as bytes
+
         val imageRef = storage.child("photos").child("${userid}.jpg")
-        //val bitmap = (imageView as BitmapDrawable).bitmap
-        val baos = ByteArrayOutputStream()
+       val baos = ByteArrayOutputStream()
         lateinit var uploadTask: UploadTask
 
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -119,7 +118,7 @@ object FirebaseImageManager {
                     }
 
                     override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                        Timber.i("DX onPrepareLoad $placeHolderDrawable")
+                      // Timber.i("DX onPrepareLoad $placeHolderDrawable")
                         //uploadImageToFirebase(userid, defaultImageUri.value,updating)
                     }
                 })

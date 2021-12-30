@@ -81,7 +81,7 @@ class Home : AppCompatActivity() {
         registerImagePickerCallback()
     }
     private fun initNavHeader() {
-        Timber.i("DX Init Nav Header")
+        Timber.i("R Init Nav Header")
         headerView = homeBinding.navView.getHeaderView(0)
         navHeaderBinding = NavHeaderBinding.bind(headerView)
 

@@ -6,8 +6,6 @@ import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -18,13 +16,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
 import org.wit.recipesapp.R
 //import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.recipesapp.databinding.FragmentRecipeBinding
 import org.wit.recipesapp.helpers.showImagePicker
 import org.wit.recipesapp.models.RecipeModel
-import org.wit.recipesapp.models.UserModel
 import org.wit.recipesapp.ui.auth.LoggedInViewModel
 import org.wit.recipesapp.ui.recipeList.RecipeListViewModel
 import timber.log.Timber
@@ -36,34 +32,32 @@ class RecipeFragment : Fragment() {
 
     private var _fragBinding: FragmentRecipeBinding? = null
     private val fragBinding get() = _fragBinding!!
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
     lateinit var navController: NavController
     var recipe = RecipeModel()
-    var user = UserModel()
+
     private lateinit var recipeViewModel: RecipeViewModel
 
     private val recipeListViewModel: RecipeListViewModel by activityViewModels()
-    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
+    private val loggedInViewModel: LoggedInViewModel by activityViewModels()
 
 
     var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-      //  app = activity?.application as MainApp
-
         setHasOptionsMenu(true)
-        navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment)
-        registerImagePickerCallback()
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         _fragBinding = FragmentRecipeBinding.inflate(inflater, container, false)
         val meals = resources.getStringArray(R.array.meals)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item,meals)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, meals)
         val root = fragBinding.root
 
         activity?.title = getString(R.string.action_recipe)
@@ -71,40 +65,43 @@ class RecipeFragment : Fragment() {
         recipeViewModel =
             ViewModelProvider(this).get(RecipeViewModel::class.java)
         //val textView: TextView = root.findViewById(R.id.text_home)
-        recipeViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
-                status -> status?.let { render(status) }
+        recipeViewModel.observableStatus.observe(viewLifecycleOwner, Observer { status ->
+            status?.let { render(status) }
         })
 
-        fragBinding.btnAdd.setOnClickListener() {
-            val meals = resources.getStringArray(R.array.meals)
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item,meals)
-            fragBinding.autoCompleteTextView.setAdapter(arrayAdapter)
-
-
-            val title = fragBinding.recipeTitle.text.toString()
-            val description = fragBinding.description.text.toString()
-            recipe.title = fragBinding.recipeTitle.text.toString()
-            recipe.description = fragBinding.description.text.toString()
-            if (recipe.title.isEmpty()) {
-                Snackbar.make(it, R.string.enter_recipe_title, Snackbar.LENGTH_LONG)
-                    .show()
-            } else {
-
-                recipeViewModel.addRecipe(loggedInViewModel.liveFirebaseUser, RecipeModel(title = title,
-                    description = description,
-                    email = loggedInViewModel.liveFirebaseUser.value?.email!!))
-                Timber.i("add Button Pressed: $recipe.title")
-
-            }
-        }
         fragBinding.chooseImage.setOnClickListener {
             Timber.i("Select image")
             showImagePicker(imageIntentLauncher)    // trigger the image picker
 
         }
+        setButtonListener(fragBinding)
         return root;
     }
 
+  //  fragBinding.btnAdd.setOnClickListener() {
+  fun setButtonListener(layout: FragmentRecipeBinding) {
+      layout.btnAdd.setOnClickListener {
+      val meals = resources.getStringArray(R.array.meals)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item,meals)
+        fragBinding.autoCompleteTextView.setAdapter(arrayAdapter)
+
+        val title = fragBinding.recipeTitle.text.toString()
+        val description = fragBinding.description.text.toString()
+        recipe.title = fragBinding.recipeTitle.text.toString()
+        recipe.description = fragBinding.description.text.toString()
+        if (recipe.title.isEmpty()) {
+            Snackbar.make(it, R.string.enter_recipe_title, Snackbar.LENGTH_LONG)
+                .show()
+        } else {
+
+            recipeViewModel.addRecipe(loggedInViewModel.liveFirebaseUser, RecipeModel(title = title,
+                description = description,
+                email = loggedInViewModel.liveFirebaseUser.value?.email!!))
+            Timber.i("add Button Pressed: $recipe.title")
+
+        }
+          }
+    }
 
     private fun render(status: Boolean) {
         when (status) {
@@ -153,24 +150,6 @@ class RecipeFragment : Fragment() {
 
     }
 
-    private fun registerImagePickerCallback() {
-        imageIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { result ->
-                when(result.resultCode){
-                    AppCompatActivity.RESULT_OK -> {
-                        if (result.data != null) {
-                            Timber.i("Got Result ${result.data!!.data}")
-                          //  recipe.image = result.data!!.data!!
-                            Picasso.get()
-                          //      .load(recipe.image)
-                           //     .into(fragBinding.recipeImage)
-                            fragBinding.chooseImage.setText(R.string.change_recipe_image)
-                        }
-                    }
-                    AppCompatActivity.RESULT_CANCELED -> { } else -> { }
-                }
-            }
-    }
+
 
 }

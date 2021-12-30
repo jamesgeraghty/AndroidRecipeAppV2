@@ -92,13 +92,6 @@ class Login : AppCompatActivity() {
             }
     }
 
-
-
-
-
-
-
-    //Required to exit app from Login Screen - must investigate this further
     override fun onBackPressed() {
         super.onBackPressed()
         Toast.makeText(this,"Click again to Close App...", Toast.LENGTH_LONG).show()

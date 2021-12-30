@@ -1,18 +1,13 @@
 package org.wit.recipesapp.ui.recipeList
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -31,7 +26,6 @@ import org.wit.recipesapp.helpers.createLoader
 import org.wit.recipesapp.helpers.showLoader
 import org.wit.recipesapp.main.MainApp
 import org.wit.recipesapp.models.RecipeModel
-import org.wit.recipesapp.models.UserModel
 import org.wit.recipesapp.ui.auth.LoggedInViewModel
 import org.wit.recipesapp.utils.SwipeToDeleteCallback
 import org.wit.recipesapp.utils.hideLoader
@@ -59,8 +53,9 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
     ): View? {
 
         _fragBinding = FragmentRecipeListBinding.inflate(inflater, container, false)
-        val root = fragBinding.root
+        //val view = fragBinding.root
         loader = createLoader(requireActivity())
+        val view = fragBinding.root
        // activity?.title = getString(R.string.action_recipeList)
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -104,7 +99,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
             val action = RecipeListFragmentDirections.actionRecipeListFragmentToRecipeFragment(this.toString())
             findNavController().navigate(action)
         }
-        return root
+        return view
     }
     private fun render(recipesList: ArrayList<RecipeModel>) {
         fragBinding.recyclerView.adapter = RecipeAdapter(recipesList, this, recipeListViewModel.readOnly.value!!)
@@ -172,6 +167,12 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
                 arguments = Bundle().apply { }
             }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _fragBinding = null
+    }
+
     override fun onResume() {
         super.onResume()
         showLoader(loader,"Downloading Recipes")
@@ -185,10 +186,7 @@ class RecipeListFragment : Fragment(), RecipeClickListener {
         //hideLoader(loader)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _fragBinding = null
-    }
+
 
 //    private fun loadRecipes() {
 //        showRecipes(app.recipes.findAll())
