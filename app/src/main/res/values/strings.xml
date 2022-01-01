@@ -45,7 +45,7 @@
 
     <string name="action_about">About Us</string>
     <string name="about_title">Homer for President !!</string>
-    <string name="about_message">Hi, I\'m Homer\n\nPlease vote for me.\n\n Please Please Please Please!!</string>
+    <string name="about_message">Welcome to Recipes App\n\nPlease Share your recipe ideas with us !!</string>
 
     <string name="recipesNotFound">No recipe Yet...\nAdd a recipe!</string>
     messageLoading
