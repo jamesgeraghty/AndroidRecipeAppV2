@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".fragments.AboutFragment">
+    android:background="@color/ic_icon_background"
+    tools:context="org.wit.recipesapp.ui.about.AboutFragment">
 
 
     <ImageView

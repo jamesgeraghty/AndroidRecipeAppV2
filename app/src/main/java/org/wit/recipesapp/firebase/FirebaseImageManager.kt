@@ -22,10 +22,6 @@ object FirebaseImageManager {
     var storage = FirebaseStorage.getInstance().reference
     var imageUri = MutableLiveData<Uri>()
 
-    //1. checkStorageForExistingProfilePic
-    //2. if true - update imageuri else No File so add to storage
-    //3. If checkStorageForExistingProfilePic and Updating ProfilePic overwrite existing photo
-
     fun checkStorageForExistingProfilePic(userid: String) {
         val imageRef = storage.child("photos").child("${userid}.jpg")
         val defaultImageRef = storage.child("profileimage.jpg")

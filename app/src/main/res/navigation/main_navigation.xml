@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_recipeListFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
 
     <fragment
@@ -35,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="org.wit.recipesapp.fragments.AboutFragment"
+        android:name="org.wit.recipesapp.ui.about.AboutFragment"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/detailFragment"

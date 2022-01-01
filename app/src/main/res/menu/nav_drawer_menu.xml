@@ -10,10 +10,12 @@
             android:title="@string/action_recipe" />
         <item
             android:id="@+id/recipeListFragment"
+            android:icon="@drawable/ic_baseline_list_24"
             android:title="@string/action_recipeList" />
         <item
             android:id="@+id/aboutFragment"
 
+            android:icon="@drawable/ic_baseline_read_more_24"
             android:title="@string/action_about" />
     </group>
 
