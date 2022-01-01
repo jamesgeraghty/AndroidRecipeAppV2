@@ -1,4 +1,4 @@
-# Android Recipe Version2  App by James Geraghty
+# Android Recipe Version 2  App by James Geraghty
 
 Mobile Application Development (Higher Diploma in Computer Science) completed From November to December 2021.
 
@@ -23,6 +23,6 @@ A recipe Mobile Phone application created in Android Studio. The user can create
 ![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeAppV2/blob/master/androidversion2.png)
 
 
-![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeApp/blob/master/splashscreen.png)
+![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeApp/blob/master/navdrawer.JPG)
 
 
