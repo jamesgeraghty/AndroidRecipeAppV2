@@ -23,6 +23,6 @@ A recipe Mobile Phone application created in Android Studio. The user can create
 ![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeAppV2/blob/master/androidversion2.png)
 
 
-![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeApp/blob/master/navdrawer.JPG)
+![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeAppV2/blob/master/navdrawer.JPG)
 
 
