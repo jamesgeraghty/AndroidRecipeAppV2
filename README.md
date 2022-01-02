@@ -17,14 +17,40 @@ This Recipes app is designed to allow users sign up and login into their account
 -	MVVM – allows for code reuse, binding makes data easier to handle and the code is easy to maintain because the separation of the key elements of the app offers structure and uniformity to the code. 
 -	Navigation Component structure including the use of SafeArgs.
 
+## MVVM Flowchart Design
+![mvvm](https://user-images.githubusercontent.com/59435031/147878452-5e987f93-a957-4c2e-9292-efc4de36fc88.png)
 
 
   
-## Screenshots
+## Navigation Components
 
 ![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeAppV2/blob/master/androidversion2.png)
 
 
+
 ![App Screenshot](https://github.com/jamesgeraghty/AndroidRecipeAppV2/blob/master/navdrawer.JPG)
+
+## References
+Exposed Drop-Down Menu - Forget about Spinner | Android Studio Tutorial
+https://www.youtube.com/watch?v=741l_fPKL3Y
+
+Android MVVM Design Pattern
+https://www.journaldev.com/20292/android-mvvm-design-pattern
+
+Adapter Tutorial With Example In Android Studio
+https://abhiandroid.com/ui/adapter
+
+Get started with Cloud Storage on Web
+https://firebase.google.com/docs/storage/web/start
+
+Firebase  QuickStart-android
+https://github.com/firebase/quickstart-android
+
+Google Developer training.
+https://google-developer-training.github.io/android-developer-advanced-course-concepts/unit-1-expand-the-user-experience/lesson-1-fragments/1-1-c-fragments/1-1-c-fragments.html
+
+MVVM (Model View ViewModel) Architecture Pattern in Android
+https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android/
+
 
 
